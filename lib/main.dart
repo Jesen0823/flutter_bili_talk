@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bili_talk/db/hi_cache.dart';
 import 'package:flutter_bili_talk/http/core/hi_net.dart';
 import 'package:flutter_bili_talk/http/request/test_request.dart';
 import 'package:flutter_bili_talk/model/owner.dart';
@@ -53,11 +54,18 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  @override
+  void initState() {
+    super.initState();
+    // 初始化SharePreferences
+    HiCache.preInit();
+  }
 
   void _incrementCounter() {
     // 测试
     //test();
-    testjosen();
+    //testjosen();
+    testSharedPrefrerence();
 
     setState(() {
       // This call to setState tells the Flutter framework that something has
@@ -149,5 +157,11 @@ class _MyHomePageState extends State<MyHomePage> {
 
     // json_serializable的使用
     var result = Result.fromJson(ownerMap);
+  }
+
+  void testSharedPrefrerence() {
+    HiCache.getInstance().setString('key', '1234');
+    var value = HiCache.getInstance().get('key');
+    print('quhui: $value');
   }
 }
