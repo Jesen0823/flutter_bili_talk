@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bili_talk/db/hi_cache.dart';
 import 'package:flutter_bili_talk/http/core/hi_net.dart';
@@ -65,7 +67,8 @@ class _MyHomePageState extends State<MyHomePage> {
     // 测试
     //test();
     //testjosen();
-    testSharedPrefrerence();
+    //testSharedPrefrerence();
+    testJsonToMap();
 
     setState(() {
       // This call to setState tells the Flutter framework that something has
@@ -163,5 +166,17 @@ class _MyHomePageState extends State<MyHomePage> {
     HiCache.getInstance().setString('key', '1234');
     var value = HiCache.getInstance().get('key');
     print('quhui: $value');
+  }
+
+  void testJsonToMap() {
+    const jsonString =
+        "{ \"name\": \"flutter\", \"url\": \"https://coding.imooc.com/class/487.html\" }";
+    //json 转map
+    Map<String, dynamic> jsonMap = jsonDecode(jsonString);
+    print('name:${jsonMap['name']}');
+    print('url:${jsonMap['url']}');
+
+    String json = jsonEncode(jsonMap);
+    print("json: $json");
   }
 }
