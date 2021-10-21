@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bili_talk/http/core/hi_net.dart';
+import 'package:flutter_bili_talk/http/request/test_request.dart';
 
 void main() {
   runApp(MyApp());
@@ -48,7 +50,13 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
-  void _incrementCounter() {
+  void _incrementCounter() async {
+    // 测试
+    TestRequest request = TestRequest();
+    request.add("aa", "aaa").add("bb", "bbbb");
+    var result = await HiNet.getInstance().fire(request);
+    print('[Flut] result: $result');
+
     setState(() {
       // This call to setState tells the Flutter framework that something has
       // changed in this State, which causes it to rerun the build method below
