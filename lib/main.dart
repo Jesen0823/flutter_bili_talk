@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bili_talk/http/core/hi_net.dart';
 import 'package:flutter_bili_talk/http/request/test_request.dart';
+import 'package:flutter_bili_talk/model/owner.dart';
+import 'package:flutter_bili_talk/model/result.dart';
 
 import 'http/core/hi_error.dart';
 
@@ -52,20 +54,10 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
-  void _incrementCounter() async {
+  void _incrementCounter() {
     // 测试
-    TestRequest request = TestRequest();
-    request.add("aa", "aaa").add("bb", "bbbb").add("requestParams", "ppp");
-    try {
-      var result = await HiNet.getInstance().fire(request);
-      print('[Flut] result: $result');
-    } on NeedAuth catch (e) {
-      print(e);
-    } on NeedLogin catch (e) {
-      print(e);
-    } on HiNetError catch (e) {
-      print(e);
-    }
+    //test();
+    testjosen();
 
     setState(() {
       // This call to setState tells the Flutter framework that something has
@@ -127,5 +119,35 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
+  }
+
+  void test() async {
+    // 测试
+    TestRequest request = TestRequest();
+    request.add("aa", "aaa").add("bb", "bbbb").add("requestParams", "ppp");
+    try {
+      var result = await HiNet.getInstance().fire(request);
+      print('[Flut] result: $result');
+    } on NeedAuth catch (e) {
+      print(e);
+    } on NeedLogin catch (e) {
+      print(e);
+    } on HiNetError catch (e) {
+      print(e);
+    }
+  }
+
+  void testjosen() async {
+    var ownerMap = {
+      "name": "伊零Qnezero",
+      "face":
+          "http://i2.hdslb.com/bfs/face/1c57a17a7b077ccd19dba58a981a673799b85aef.jpg",
+      "fans'": 0
+    };
+    Owner owner = Owner.fromJson(ownerMap);
+    print(owner.toString());
+
+    // json_serializable的使用
+    var result = Result.fromJson(ownerMap);
   }
 }
