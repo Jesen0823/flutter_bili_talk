@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bili_talk/http/core/hi_net.dart';
 import 'package:flutter_bili_talk/http/request/test_request.dart';
 
+import 'http/core/hi_error.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -30,7 +32,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key, required this.title}) : super(key: key);
+  MyHomePage({Key key, this.title}) : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -54,8 +56,16 @@ class _MyHomePageState extends State<MyHomePage> {
     // 测试
     TestRequest request = TestRequest();
     request.add("aa", "aaa").add("bb", "bbbb");
-    var result = await HiNet.getInstance().fire(request);
-    print('[Flut] result: $result');
+    try {
+      var result = await HiNet.getInstance().fire(request);
+      print('[Flut] result: $result');
+    } on NeedAuth catch (e) {
+      print(e);
+    } on NeedLogin catch (e) {
+      print(e);
+    } on HiNetError catch (e) {
+      print(e);
+    }
 
     setState(() {
       // This call to setState tells the Flutter framework that something has
