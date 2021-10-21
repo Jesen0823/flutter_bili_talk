@@ -1,4 +1,4 @@
-import 'package:flutter_bili_talk/http/core/mock_adapter.dart';
+import 'package:flutter_bili_talk/http/core/dio_adapter.dart';
 import 'package:flutter_bili_talk/http/request/base_request.dart';
 
 import 'hi_error.dart';
@@ -47,12 +47,12 @@ class HiNet {
       default:
         throw HiNetError(status, result.toString(), data: result);
     }
-    return result;
   }
 
   Future<dynamic> send<T>(BaseRequest request) async {
     print("[Flut] url:${request.url()}");
-    HiNetAdapter adapter = MockAdapter();
+    // HiNetAdapter adapter = MockAdapter(); // 使用http
+    HiNetAdapter adapter = DioAdapter(); // 使用Dio网络请求库
     return adapter.send(request);
   }
 
