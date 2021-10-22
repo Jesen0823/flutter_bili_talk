@@ -3,11 +3,13 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_bili_talk/db/hi_cache.dart';
 import 'package:flutter_bili_talk/http/core/hi_net.dart';
+import 'package:flutter_bili_talk/http/dao/login_dao.dart';
 import 'package:flutter_bili_talk/http/request/test_request.dart';
 import 'package:flutter_bili_talk/model/owner.dart';
 import 'package:flutter_bili_talk/model/result.dart';
 
 import 'http/core/hi_error.dart';
+import 'http/request/notice_request.dart';
 
 void main() {
   runApp(MyApp());
@@ -68,7 +70,9 @@ class _MyHomePageState extends State<MyHomePage> {
     //test();
     //testjosen();
     //testSharedPrefrerence();
-    testJsonToMap();
+    //testJsonToMap();
+    // testNotice();
+    testLogin();
 
     setState(() {
       // This call to setState tells the Flutter framework that something has
@@ -178,5 +182,34 @@ class _MyHomePageState extends State<MyHomePage> {
 
     String json = jsonEncode(jsonMap);
     print("json: $json");
+  }
+
+  void testNotice() async {
+    try {
+      var notice = await HiNet.getInstance().fire(NoticeRequest());
+      print(notice);
+    } on NeedLogin catch (e) {
+      print(e);
+    } on NeedAuth catch (e) {
+      print(e);
+    } on HiNetError catch (e) {
+      print(e.message);
+    }
+  }
+
+  Future<void> testLogin() async {
+    try {
+      var result =
+          await LoginDao.registration('kkf', 'pass123', '123445', '5566');
+      print('注册：$result');
+      var loginRet = await LoginDao.login('kkf', 'pass123');
+      print('登录：$loginRet');
+    } on NeedLogin catch (e) {
+      print(e);
+    } on NeedAuth catch (e) {
+      print(e);
+    } on HiNetError catch (e) {
+      print(e.message);
+    }
   }
 }

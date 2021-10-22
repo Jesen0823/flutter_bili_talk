@@ -1,3 +1,5 @@
+import 'package:flutter_bili_talk/http/api/login_api.dart';
+
 enum HttpMethod { GET, POST, DELETE }
 
 /// 基础请求
@@ -31,6 +33,11 @@ abstract class BaseRequest {
     } else {
       uri = Uri.http(authority(), pathStr, params);
     }
+
+    // 给需要登录的接口携带登录令牌
+    if (needLogin()) {
+      add(LoginApi.BOARDING_PASS, LoginApi.getBoardingPass());
+    }
     print("[Flut] uri:${uri.toString()}");
     return uri.toString();
   }
@@ -45,11 +52,16 @@ abstract class BaseRequest {
     return this;
   }
 
-  Map<String, dynamic> header = Map();
+  //Map<String, dynamic> header = Map();
+  Map<String, dynamic> header = {
+    'course-flag': 'fa',
+    //∥访问令牌，在课程公告获取
+    "auth-token": "MjAyMCOwNiOyMyAwMzoyNTowMQ==fa"
+  };
 
   /// 添加Header
   BaseRequest addHeader(String k, Object v) {
-    params[k] = v.toString();
+    header[k] = v.toString();
     return this;
   }
 }
