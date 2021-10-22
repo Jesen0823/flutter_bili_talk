@@ -1,4 +1,4 @@
-import 'package:flutter_bili_talk/http/api/login_api.dart';
+import 'package:flutter_bili_talk/http/dao/login_dao.dart';
 
 enum HttpMethod { GET, POST, DELETE }
 
@@ -36,7 +36,7 @@ abstract class BaseRequest {
 
     // 给需要登录的接口携带登录令牌
     if (needLogin()) {
-      add(LoginApi.BOARDING_PASS, LoginApi.getBoardingPass());
+      add(LoginDao.BOARDING_PASS, LoginDao.getBoardingPass());
     }
     print("[Flut] uri:${uri.toString()}");
     return uri.toString();
