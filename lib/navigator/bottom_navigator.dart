@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bili_talk/page/favorite_page.dart';
 import 'package:flutter_bili_talk/page/home_page.dart';
+import 'package:flutter_bili_talk/page/profile_page.dart';
+import 'package:flutter_bili_talk/page/ranking_page.dart';
 import 'package:flutter_bili_talk/util/color.dart';
 
 import 'hi_navigator.dart';
 
+/// 底部导航
 class BottomNavigator extends StatefulWidget {
   @override
   _BottomNavigatorState createState() => _BottomNavigatorState();
@@ -21,6 +25,9 @@ class _BottomNavigatorState extends State<BottomNavigator> {
   Widget build(BuildContext context) {
     _pages = [
       HomePage(),
+      RankingPage(),
+      FavoritePage(),
+      ProfilePage(),
     ];
 
     if (!_hasBuild) {
@@ -36,6 +43,7 @@ class _BottomNavigatorState extends State<BottomNavigator> {
         onPageChanged: (index) => _onJumpTo(index, pageChange: true),
         physics: NeverScrollableScrollPhysics(), //禁止横向滚动
       ),
+      // 底部导航
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         onTap: (index) => _onJumpTo(index),
@@ -51,6 +59,7 @@ class _BottomNavigatorState extends State<BottomNavigator> {
     );
   }
 
+  /// 封装底部导航Item
   _bottomItem(String title, IconData icon, int index) {
     return BottomNavigationBarItem(
       icon: Icon(icon, color: _defaultColor),
@@ -61,16 +70,14 @@ class _BottomNavigatorState extends State<BottomNavigator> {
 
   _onJumpTo(index, {pageChange = false}) {
     if (!pageChange) {
-      //让pageview展示对应的tab
+      //让pageView展示对应的tab
       _controller.jumpToPage(index);
     } else {
       HiNavigator.getInstance().onBottomTabChange(index, _pages[index]);
     }
     setState(() {
-      //控制选中第一个tab
+      //控制选中tab
       _currentIndex = index;
     });
   }
 }
-
-class RankingPage {}
