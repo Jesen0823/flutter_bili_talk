@@ -5,6 +5,7 @@ import 'package:flutter_bili_talk/page/login_page.dart';
 import 'package:flutter_bili_talk/page/registration_page.dart';
 import 'package:flutter_bili_talk/page/video_detail_page.dart';
 import 'package:flutter_bili_talk/util/color.dart';
+import 'package:flutter_bili_talk/util/toast.dart';
 
 import 'model/video_model.dart';
 import 'navigator/bottom_navigator.dart';
@@ -99,26 +100,9 @@ class BiliRouteDelegate extends RouterDelegate<BiliRoutePath>
           videoModel: videoModel,
         ));
     } else if (routeStatus == RouteStatus.registration) {
-      page = pageWrap(RegistrationPage(
-        onJumpToLogin: () {
-          // 跳转登录页
-          _routeStatus = RouteStatus.login;
-          notifyListeners();
-        },
-      ));
+      page = pageWrap(RegistrationPage());
     } else if (routeStatus == RouteStatus.login) {
-      page = pageWrap(LoginPage(
-        onSuccess: () {
-          // 登录成功跳转首页
-          _routeStatus = RouteStatus.home;
-          notifyListeners();
-        },
-        onJumpRegister: () {
-          // 跳转注册页
-          _routeStatus = RouteStatus.registration;
-          notifyListeners();
-        },
-      ));
+      page = pageWrap(LoginPage());
     }
 
     //创建一个数组，否则pages因引用没有改变路由不会生效
@@ -140,6 +124,7 @@ class BiliRouteDelegate extends RouterDelegate<BiliRoutePath>
             if ((route.settings as MaterialPage).child is LoginPage) {
               if (!hasLogin) {
                 print('请先登陆');
+                showWarnToast('请先登录');
                 return false;
               }
             }

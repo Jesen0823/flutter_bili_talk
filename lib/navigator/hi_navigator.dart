@@ -6,6 +6,8 @@ import 'package:flutter_bili_talk/page/video_detail_page.dart';
 
 import 'bottom_navigator.dart';
 
+/// 监听页面跳转
+/// @param current当前页面， pre上个页面
 typedef RouteChangeListener(RouteStatusInfo current, RouteStatusInfo pre);
 
 ///创建页面
@@ -57,6 +59,7 @@ class HiNavigator extends _RouteJumpListener {
 
   List<RouteChangeListener> _listeners = [];
 
+  // 私有构造方法
   HiNavigator._();
 
   RouteJumpListener _routeJump;
@@ -89,15 +92,15 @@ class HiNavigator extends _RouteJumpListener {
     }
   }
 
+  //移除监听
+  void removeListener(RouteChangeListener listener) {
+    _listeners.remove(listener);
+  }
+
   //监听首页底部 tab切换
   void onBottomTabChange(int index, Widget page) {
     _bottomTab = RouteStatusInfo(RouteStatus.home, page);
     _notify(_bottomTab);
-  }
-
-  //移除监听
-  void removeListener(RouteChangeListener listener) {
-    _listeners.remove(listener);
   }
 
   //通知路由页面变化
@@ -115,8 +118,8 @@ class HiNavigator extends _RouteJumpListener {
     }
     print("hi _notify: current：${current.page}");
     print("hi _notify:pre: ${_current?.page}");
-    _listeners.forEach((element) {
-      element(current, _current);
+    _listeners.forEach((listener) {
+      listener(current, _current);
     });
     _current = current;
   }
