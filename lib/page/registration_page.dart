@@ -21,10 +21,12 @@ class RegistrationPage extends StatefulWidget {
 
 class _RegistrationPageState extends State<RegistrationPage> {
   bool isProtect = false;
+
   // 按钮可点状态
   bool loginEnable = false;
   String userName;
   String password;
+
   // 重新输入密码确认
   String rePassword;
   String imoocId;

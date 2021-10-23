@@ -11,6 +11,11 @@ import 'package:flutter_bili_talk/widget/login_input.dart';
 /// 登录页面
 
 class LoginPage extends StatefulWidget {
+  VoidCallback onJumpRegister;
+  VoidCallback onSuccess;
+
+  LoginPage({Key key, this.onJumpRegister, this.onSuccess}) : super(key: key);
+
   @override
   _LoginPageState createState() => _LoginPageState();
 }
@@ -27,6 +32,7 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       appBar: appBar('密码登录', '注册', () {
         print('right btn click');
+        widget.onJumpRegister();
       }),
       body: Container(
         child: ListView(
@@ -89,6 +95,9 @@ class _LoginPageState extends State<LoginPage> {
       if (result['code'] == 0) {
         print('登录成功');
         showToast('登录成功');
+        if (widget.onSuccess != null) {
+          widget.onSuccess();
+        }
       } else {
         print(result['msg']);
         showToast(result['msg']);

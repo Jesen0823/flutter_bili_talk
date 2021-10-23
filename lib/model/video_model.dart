@@ -1,0 +1,3 @@
+class VideoModel {
+  var vid;
+}
