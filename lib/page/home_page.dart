@@ -11,14 +11,15 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage>
+    with AutomaticKeepAliveClientMixin {
   var listener;
 
   @override
   void initState() {
     super.initState();
     HiNavigator.getInstance().addListener(this.listener = (current, pre) {
-      print('current:${current.page}, pre:${pre.page}');
+      print('home:current:${current.page}, home:pre:${pre.page}');
       if (widget == current.page || current.page is HomePage) {
         // 当前页面被打开
         print('homePage is opened or onResume');
@@ -52,4 +53,8 @@ class _HomePageState extends State<HomePage> {
     HiNavigator.getInstance().removeListener(this.listener);
     super.dispose();
   }
+
+  /// 用来设置 当tab页面发生变化时不会创建多次
+  @override
+  bool get wantKeepAlive => true;
 }

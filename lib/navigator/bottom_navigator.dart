@@ -68,6 +68,7 @@ class _BottomNavigatorState extends State<BottomNavigator> {
     );
   }
 
+  /// 页面导航或首页Tab导航
   _onJumpTo(index, {pageChange = false}) {
     if (!pageChange) {
       //让pageView展示对应的tab

@@ -97,13 +97,13 @@ class HiNavigator extends _RouteJumpListener {
     _listeners.remove(listener);
   }
 
-  //监听首页底部 tab切换
+  /// 监听首页底部 tab切换
   void onBottomTabChange(int index, Widget page) {
     _bottomTab = RouteStatusInfo(RouteStatus.home, page);
     _notify(_bottomTab);
   }
 
-  //通知路由页面变化
+  /// 通知路由页面变化
   void notify(List<MaterialPage> currentPages, List<MaterialPage> prePages) {
     if (currentPages == prePages) return;
     var current =
