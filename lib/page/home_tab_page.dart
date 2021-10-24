@@ -18,11 +18,13 @@ class HomeTabPage extends StatefulWidget {
 class _HomeTabPageState extends State<HomeTabPage> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: ListView(
-        children: [if (widget.bannerList != null) _banner()],
-      ),
-    );
+    return MediaQuery.removePadding(
+        // 移除顶部间距
+        removeTop: true,
+        context: context,
+        child: ListView(
+          children: [if (widget.bannerList != null) _banner()],
+        ));
   }
 
   _banner() {
