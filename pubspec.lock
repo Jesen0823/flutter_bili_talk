@@ -216,6 +216,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.1.1"
+  flutter_nested:
+    dependency: "direct main"
+    description:
+      name: flutter_nested
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.0.0"
   flutter_page_indicator:
     dependency: transitive
     description:
@@ -223,6 +230,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.0.3"
+  flutter_statusbar_manager:
+    dependency: "direct main"
+    description:
+      name: flutter_statusbar_manager
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.0.0"
   flutter_swiper:
     dependency: "direct main"
     description:

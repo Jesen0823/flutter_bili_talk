@@ -45,7 +45,7 @@ class FlutterAesEcbPkcs5 {
   /// Decrypts the [txt] with the given [key].
   ///
   /// The content [txt] that needs to be decrypted must be HEX encoded，key also.
-  /// [txt] and [key] shoudn't be null.
+  /// [txt] and [key] shouldn't be null.
   static Future<String> decryptString(String txt, String key) async {
     try {
       final String result =

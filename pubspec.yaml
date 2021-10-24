@@ -35,6 +35,8 @@ dependencies:
   underline_indicator: ^0.0.2 # 首页顶部指示器
   flutter_swiper: ^1.1.6
   flutter_aes_ecb_pkcs5: ^0.1.1 # AES_ECB加密解密
+  flutter_nested: ^1.0.0
+  flutter_statusbar_manager: ^2.0.0 # 状态栏管理
 
 
 dev_dependencies:
