@@ -10,6 +10,7 @@ import 'package:flutter_bili_talk/http/request/test_request.dart';
 import 'package:flutter_bili_talk/model/owner.dart';
 import 'package:flutter_bili_talk/model/result.dart';
 import 'package:flutter_bili_talk/page/registration_page.dart';
+import 'package:flutter_bili_talk/util/aes_ecb_encode.dart';
 import 'package:flutter_bili_talk/util/color.dart';
 
 void main() {
@@ -58,7 +59,8 @@ class _MyHomePageState extends State<MyHomePage> {
     //testSharedPrefrerence();
     //testJsonToMap();
     // testNotice();
-    testLogin();
+    //testLogin();
+    testAES();
 
     setState(() {
       _counter++;
@@ -168,5 +170,12 @@ class _MyHomePageState extends State<MyHomePage> {
     } on HiNetError catch (e) {
       print(e.message);
     }
+  }
+
+  Future<void> testAES() async {
+    var encodeStr = await aesEncode('nmb123');
+    print('after encode: $encodeStr');
+    var decodeStr = await aesDecode(encodeStr);
+    print('after decode: $decodeStr');
   }
 }

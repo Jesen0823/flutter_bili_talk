@@ -5,9 +5,11 @@ import 'package:flutter_bili_talk/widget/hi_banner.dart';
 
 /// 首页顶部导航
 class HomeTabPage extends StatefulWidget {
-  final String name;
+  // Category类别名称
+  final String categoryName;
   final List<BannerMo> bannerList;
-  const HomeTabPage({Key key, this.name, this.bannerList}) : super(key: key);
+  const HomeTabPage({Key key, this.categoryName, this.bannerList})
+      : super(key: key);
 
   @override
   _HomeTabPageState createState() => _HomeTabPageState();
