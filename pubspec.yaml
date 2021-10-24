@@ -33,6 +33,7 @@ dependencies:
   shared_preferences: '>=0.5.7 <2.0.8' #本地存储
   fluttertoast: ^7.1.6
   underline_indicator: ^0.0.2 # 首页顶部指示器
+  flutter_swiper: ^1.1.6
 
 
 dev_dependencies:
