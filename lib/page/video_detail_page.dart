@@ -17,7 +17,7 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
       appBar: AppBar(),
       body: Column(
         children: [
-          Text('详情 vid:${widget.videoModel.vid}'),
+          Text('详情 vid:${widget.videoModel.title}'),
         ],
       ),
     );

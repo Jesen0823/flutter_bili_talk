@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bili_talk/model/video_model.dart';
 import 'package:flutter_bili_talk/navigator/hi_navigator.dart';
 import 'package:flutter_bili_talk/util/format_util.dart';
+import 'package:flutter_bili_talk/util/view_util.dart';
 
 /// 视频卡片
 class VideoCard extends StatelessWidget {
@@ -14,11 +15,7 @@ class VideoCard extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     return Stack(
       children: [
-        Image.network(
-          videoModel.cover ?? '',
-          width: size.width / 2 - 10,
-          height: 120,
-        ),
+        cachedImage(videoModel.cover, width: size.width / 2 - 10, height: 120),
         Positioned(
           left: 0,
           right: 0,
@@ -57,11 +54,11 @@ class VideoCard extends StatelessWidget {
 
   /// 图标文本
   _iconText(IconData iconData, int count) {
-    String views = "";
+    String textCount = "";
     if (iconData != null) {
-      views = countFormat(count);
+      textCount = countFormat(count);
     } else {
-      views = durationTransform(videoModel.duration);
+      textCount = durationTransform(videoModel.duration);
     }
     return Row(
       children: [
@@ -69,7 +66,7 @@ class VideoCard extends StatelessWidget {
         Padding(
           padding: EdgeInsets.only(left: 3),
           child: Text(
-            views,
+            textCount,
             style: TextStyle(
               color: Colors.white,
               fontSize: 10,
@@ -91,7 +88,7 @@ class VideoCard extends StatelessWidget {
           bottom: 5,
         ),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start, // 左对齐
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
@@ -120,7 +117,7 @@ class VideoCard extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(12),
-              child: Image.network(
+              child: cachedImage(
                 owner.face,
                 height: 24,
                 width: 24,
