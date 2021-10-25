@@ -6,6 +6,7 @@ import 'package:flutter_bili_talk/util/view_util.dart';
 import 'package:flutter_bili_talk/widget/app_bar.dart';
 import 'package:flutter_bili_talk/widget/hi_tab_common.dart';
 import 'package:flutter_bili_talk/widget/navigation_bar.dart';
+import 'package:flutter_bili_talk/widget/video_header.dart';
 import 'package:flutter_bili_talk/widget/video_view.dart';
 
 class VideoDetailPage extends StatefulWidget {
@@ -52,6 +53,16 @@ class _VideoDetailPageState extends State<VideoDetailPage>
           ),
           _buildVideoView(),
           _buildTabNavigation(),
+          Flexible(
+              child: TabBarView(
+            controller: _tabController,
+            children: [
+              _buildDetailList(),
+              Container(
+                child: Text('开发中...'),
+              ),
+            ],
+          ))
         ],
       ),
     ));
@@ -102,5 +113,22 @@ class _VideoDetailPageState extends State<VideoDetailPage>
           .toList(),
       controller: _tabController,
     );
+  }
+
+  _buildDetailList() {
+    return ListView(
+      padding: EdgeInsets.all(0),
+      children: [...buildContents()],
+    );
+  }
+
+  buildContents() {
+    return [
+      Container(
+        child: VideoHeader(
+          owner: widget.videoModel.owner,
+        ),
+      )
+    ];
   }
 }
