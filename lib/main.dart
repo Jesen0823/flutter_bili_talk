@@ -23,9 +23,6 @@ class BiliApp extends StatefulWidget {
 class _BiliAppState extends State<BiliApp> {
   BiliRouteDelegate _routeDelegate = BiliRouteDelegate();
 
-  // BiliRouteInformationParser _routeInformationParser =
-  //     BiliRouteInformationParser();
-
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<HiCache>(
@@ -34,17 +31,12 @@ class _BiliAppState extends State<BiliApp> {
       builder: (BuildContext context, AsyncSnapshot<HiCache> snapshot) {
         //定义route           加载结束 返回router  否则返回加载中
         var widget = snapshot.connectionState == ConnectionState.done
-            ? Router(
-                // routeInformationParser: _routeInformationParser,
-                routerDelegate: _routeDelegate,
-                //routeInformationParser 为null 时可以缺省，否则必须成对出现， routeInfomation提供者
-                // routeInformationProvider: PlatformRouteInformationProvider(
-                //     initialRouteInformation: RouteInformation(location: "/")),
-              )
+            ? Router(routerDelegate: _routeDelegate)
             : Scaffold(
                 body: Center(
-                child: CircularProgressIndicator(),
-              ));
+                  child: CircularProgressIndicator(),
+                ),
+              );
 
         return MaterialApp(
           home: widget,
@@ -66,7 +58,7 @@ class BiliRouteDelegate extends RouterDelegate<BiliRoutePath>
         RouteJumpListener(onJumpTo: (RouteStatus routeStatus, {Map args}) {
       _routeStatus = routeStatus;
       if (_routeStatus == RouteStatus.detail) {
-        this.videoModel = args['videoMo'];
+        this.videoModel = args['videoModel'];
       }
       notifyListeners();
     }));
