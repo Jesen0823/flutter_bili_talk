@@ -7,11 +7,10 @@ import 'package:flutter_bili_talk/navigator/hi_navigator.dart';
 import 'package:flutter_bili_talk/page/home_tab_page.dart';
 import 'package:flutter_bili_talk/page/profile_page.dart';
 import 'package:flutter_bili_talk/page/video_detail_page.dart';
-import 'package:flutter_bili_talk/util/color.dart';
 import 'package:flutter_bili_talk/util/toast.dart';
 import 'package:flutter_bili_talk/util/view_util.dart';
+import 'package:flutter_bili_talk/widget/hi_tab_common.dart';
 import 'package:flutter_bili_talk/widget/navigation_bar.dart';
-import 'package:underline_indicator/underline_indicator.dart';
 
 /// 首页
 
@@ -29,14 +28,24 @@ class _HomePageState extends HiState<HomePage>
         AutomaticKeepAliveClientMixin,
         TickerProviderStateMixin,
         WidgetsBindingObserver {
+  // 路由监听
   var listener;
+
+  // tab控制器
   TabController _tabController;
 
+  // 栏目类别
   List<CategoryMo> categoryList = [];
+
+  // 轮播列表
   List<BannerMo> bannerList = [];
-  bool _isLoading = true;
+
   // 当前页面
   Widget _currentPage;
+
+  /// 用来设置 当tab页面发生变化时不会创建多次
+  @override
+  bool get wantKeepAlive => true;
 
   @override
   void initState() {
@@ -131,30 +140,20 @@ class _HomePageState extends HiState<HomePage>
     }
   }
 
-  /// 用来设置 当tab页面发生变化时不会创建多次
-  @override
-  bool get wantKeepAlive => true;
-
+  // 顶部Tab
   _tabBar() {
-    return TabBar(
-        controller: _tabController,
-        isScrollable: true, // 顶部TabBar是否可以滚动
-        labelColor: Colors.black,
-        indicator: UnderlineIndicator(
-            strokeCap: StrokeCap.round,
-            borderSide: BorderSide(color: primary, width: 3),
-            insets: EdgeInsets.only(left: 15, right: 15)),
-        tabs: categoryList.map<Tab>((tab) {
-          return Tab(
-            child: Padding(
-              padding: EdgeInsets.only(left: 5, right: 5),
-              child: Text(
-                tab.name,
-                style: TextStyle(fontSize: 16),
-              ),
-            ),
-          );
-        }).toList());
+    return HiTab(
+      categoryList
+          .map<Tab>((tab) => Tab(
+                text: tab.name,
+              ))
+          .toList(),
+      controller: _tabController,
+      fontSize: 16,
+      borderWidth: 3,
+      unselectedLabelColor: Colors.black54,
+      insets: 13,
+    );
   }
 
   void loadData() async {
