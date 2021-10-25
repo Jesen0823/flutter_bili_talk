@@ -1,26 +1,23 @@
-
 import 'dart:async';
 
 import 'package:chewie/src/center_play_button.dart';
 import 'package:chewie/src/chewie_player.dart';
 import 'package:chewie/src/chewie_progress_colors.dart';
-import 'package:chewie/src/material/material_progress_bar.dart';
 import 'package:chewie/src/helpers/utils.dart';
+import 'package:chewie/src/material/material_progress_bar.dart';
 import 'package:chewie/src/material/models/option_item.dart';
 import 'package:chewie/src/material/widgets/options_dialog.dart';
+import 'package:chewie/src/models/subtitle_model.dart';
 import 'package:chewie/src/notifiers/index.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:video_player/video_player.dart';
-import 'package:chewie/src/models/subtitle_model.dart';
-
-import 'widgets/playback_speed_dialog.dart';
 
 /// 自定义播放器Controller, copy from chewie 源码
 /// 支持空安全的皮肤，for chewie: > ^1.2.2
 
 class MaterialControls extends StatefulWidget {
-  const MaterialControls({Key? key}) : super(key: key);
+  const MaterialControls({Key key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -30,23 +27,23 @@ class MaterialControls extends StatefulWidget {
 
 class _MaterialControlsState extends State<MaterialControls>
     with SingleTickerProviderStateMixin {
-  late PlayerNotifier notifier;
-  late VideoPlayerValue _latestValue;
-  Timer? _hideTimer;
-  Timer? _initTimer;
-  late var _subtitlesPosition = const Duration();
+  PlayerNotifier notifier;
+  VideoPlayerValue _latestValue;
+  Timer _hideTimer;
+  Timer _initTimer;
+  var _subtitlesPosition = const Duration();
   bool _subtitleOn = false;
-  Timer? _showAfterExpandCollapseTimer;
+  Timer _showAfterExpandCollapseTimer;
   bool _dragging = false;
   bool _displayTapped = false;
 
   final barHeight = 48.0 * 1.5;
   final marginSize = 5.0;
 
-  late VideoPlayerController controller;
-  ChewieController? _chewieController;
+  VideoPlayerController controller;
+  ChewieController _chewieController;
   // We know that _chewieController is set in didChangeDependencies
-  ChewieController get chewieController => _chewieController!;
+  ChewieController get chewieController => _chewieController;
 
   @override
   void initState() {
@@ -58,9 +55,9 @@ class _MaterialControlsState extends State<MaterialControls>
   Widget build(BuildContext context) {
     if (_latestValue.hasError) {
       return chewieController.errorBuilder?.call(
-        context,
-        chewieController.videoPlayerController.value.errorDescription!,
-      ) ??
+            context,
+            chewieController.videoPlayerController.value.errorDescription,
+          ) ??
           const Center(
             child: Icon(
               Icons.error,
@@ -95,7 +92,7 @@ class _MaterialControlsState extends State<MaterialControls>
                       offset: Offset(
                           0.0, notifier.hideStuff ? barHeight * 0.8 : 0.0),
                       child:
-                      _buildSubtitles(context, chewieController.subtitle!),
+                          _buildSubtitles(context, chewieController.subtitle),
                     ),
                   _buildBottomBar(context),
                 ],
@@ -167,7 +164,7 @@ class _MaterialControlsState extends State<MaterialControls>
     ];
 
     if (chewieController.subtitle != null &&
-        chewieController.subtitle!.isNotEmpty) {
+        chewieController.subtitle.isNotEmpty) {
       options.add(
         OptionItem(
           onTap: () {
@@ -184,8 +181,8 @@ class _MaterialControlsState extends State<MaterialControls>
     }
 
     if (chewieController.additionalOptions != null &&
-        chewieController.additionalOptions!(context).isNotEmpty) {
-      options.addAll(chewieController.additionalOptions!(context));
+        chewieController.additionalOptions(context).isNotEmpty) {
+      options.addAll(chewieController.additionalOptions(context));
     }
 
     return AnimatedOpacity(
@@ -196,7 +193,7 @@ class _MaterialControlsState extends State<MaterialControls>
           _hideTimer?.cancel();
 
           if (chewieController.optionsBuilder != null) {
-            await chewieController.optionsBuilder!(context, options);
+            await chewieController.optionsBuilder(context, options);
           } else {
             await showModalBottomSheet<OptionItem>(
               context: context,
@@ -205,7 +202,7 @@ class _MaterialControlsState extends State<MaterialControls>
               builder: (context) => OptionsDialog(
                 options: options,
                 cancelButtonText:
-                chewieController.optionsTranslation?.cancelButtonText,
+                    chewieController.optionsTranslation?.cancelButtonText,
               ),
             );
           }
@@ -232,9 +229,9 @@ class _MaterialControlsState extends State<MaterialControls>
     }
 
     if (chewieController.subtitleBuilder != null) {
-      return chewieController.subtitleBuilder!(
+      return chewieController.subtitleBuilder(
         context,
-        currentSubtitle.first!.text,
+        currentSubtitle.first.text,
       );
     }
 
@@ -247,7 +244,7 @@ class _MaterialControlsState extends State<MaterialControls>
           borderRadius: BorderRadius.circular(10.0),
         ),
         child: Text(
-          currentSubtitle.first!.text.toString(),
+          currentSubtitle.first.text.toString(),
           style: const TextStyle(
             fontSize: 18,
           ),
@@ -258,9 +255,9 @@ class _MaterialControlsState extends State<MaterialControls>
   }
 
   AnimatedOpacity _buildBottomBar(
-      BuildContext context,
-      ) {
-    final iconColor = Theme.of(context).textTheme.button!.color;
+    BuildContext context,
+  ) {
+    final iconColor = Theme.of(context).textTheme.button.color;
 
     return AnimatedOpacity(
       opacity: notifier.hideStuff ? 0.0 : 1.0,
@@ -390,7 +387,7 @@ class _MaterialControlsState extends State<MaterialControls>
     }
   }
 
-  Widget _buildPosition(Color? iconColor) {
+  Widget _buildPosition(Color iconColor) {
     final position = _latestValue.position;
     final duration = _latestValue.duration;
 
@@ -482,10 +479,10 @@ class _MaterialControlsState extends State<MaterialControls>
       chewieController.toggleFullScreen();
       _showAfterExpandCollapseTimer =
           Timer(const Duration(milliseconds: 300), () {
-            setState(() {
-              _cancelAndRestartTimer();
-            });
-          });
+        setState(() {
+          _cancelAndRestartTimer();
+        });
+      });
     });
   }
 
