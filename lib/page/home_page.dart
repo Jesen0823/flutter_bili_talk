@@ -5,8 +5,11 @@ import 'package:flutter_bili_talk/http/dao/home_dao.dart';
 import 'package:flutter_bili_talk/model/home_model.dart';
 import 'package:flutter_bili_talk/navigator/hi_navigator.dart';
 import 'package:flutter_bili_talk/page/home_tab_page.dart';
+import 'package:flutter_bili_talk/page/profile_page.dart';
+import 'package:flutter_bili_talk/page/video_detail_page.dart';
 import 'package:flutter_bili_talk/util/color.dart';
 import 'package:flutter_bili_talk/util/toast.dart';
+import 'package:flutter_bili_talk/util/view_util.dart';
 import 'package:flutter_bili_talk/widget/navigation_bar.dart';
 import 'package:underline_indicator/underline_indicator.dart';
 
@@ -20,27 +23,44 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
+// WidgetsBindingObserver 用来监听生命周期变化
 class _HomePageState extends HiState<HomePage>
-    with AutomaticKeepAliveClientMixin, TickerProviderStateMixin {
+    with
+        AutomaticKeepAliveClientMixin,
+        TickerProviderStateMixin,
+        WidgetsBindingObserver {
   var listener;
   TabController _tabController;
 
   List<CategoryMo> categoryList = [];
   List<BannerMo> bannerList = [];
+  bool _isLoading = true;
+  // 当前页面
+  Widget _currentPage;
 
   @override
   void initState() {
     super.initState();
 
+    // 生命周期注册
+    WidgetsBinding.instance.addObserver(this);
+
     _tabController = TabController(length: categoryList.length, vsync: this);
 
     HiNavigator.getInstance().addListener(this.listener = (current, pre) {
+      this._currentPage = current.page;
       print('home:current:${current.page}, home:pre:${pre.page}');
       if (widget == current.page || current.page is HomePage) {
         // 当前页面被打开
         print('homePage is opened or onResume');
       } else if (widget == pre?.page || pre?.page is HomePage) {
         print('homePage is back or onPause');
+      }
+
+      // 当页面返回到首页恢复首页的状态栏样式
+      if (pre?.page is VideoDetailPage && !(current.page is ProfilePage)) {
+        var statusStyle = StatusStyle.DARK_STYLE;
+        changeStatusBar(color: Colors.white, statusStyle: statusStyle);
       }
     });
 
@@ -83,9 +103,32 @@ class _HomePageState extends HiState<HomePage>
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     HiNavigator.getInstance().removeListener(this.listener);
     _tabController.dispose();
     super.dispose();
+  }
+
+  // 监听生命周期的变化
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    print('[Flut] didChangeAppLifecycleState, state: $state');
+    switch (state) {
+      case AppLifecycleState.inactive: // 处于这种状态的应用程序应该假设它们可能在任何时候暂停
+        break;
+      case AppLifecycleState.resumed: //从后台切换前台，界面可见
+        // fixBug, 后台切到前台状态栏颜色发生变化问题
+        if (!(_currentPage is VideoDetailPage)) {
+          changeStatusBar(
+              color: Colors.white, statusStyle: StatusStyle.DARK_STYLE);
+        }
+        break;
+      case AppLifecycleState.paused: //界面不可见,后台
+        break;
+      case AppLifecycleState.detached: //APP结束时调用
+        break;
+    }
   }
 
   /// 用来设置 当tab页面发生变化时不会创建多次
