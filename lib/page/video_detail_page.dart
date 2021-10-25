@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bili_talk/model/video_model.dart';
 import 'package:flutter_bili_talk/util/view_util.dart';
 import 'package:flutter_bili_talk/widget/app_bar.dart';
+import 'package:flutter_bili_talk/widget/expendable_content.dart';
 import 'package:flutter_bili_talk/widget/hi_tab_common.dart';
 import 'package:flutter_bili_talk/widget/navigation_bar.dart';
 import 'package:flutter_bili_talk/widget/video_header.dart';
@@ -118,7 +119,16 @@ class _VideoDetailPageState extends State<VideoDetailPage>
   _buildDetailList() {
     return ListView(
       padding: EdgeInsets.all(0),
-      children: [...buildContents()],
+      children: [
+        ...buildContents(),
+        Container(
+          height: 500,
+          margin: EdgeInsets.only(top: 10),
+          alignment: Alignment.topLeft,
+          decoration: BoxDecoration(color: Colors.lightBlueAccent),
+          child: Text('展开列表'),
+        ),
+      ],
     );
   }
 
@@ -128,7 +138,10 @@ class _VideoDetailPageState extends State<VideoDetailPage>
         child: VideoHeader(
           owner: widget.videoModel.owner,
         ),
-      )
+      ),
+      ExpandableContent(
+        videoModel: widget.videoModel,
+      ),
     ];
   }
 }

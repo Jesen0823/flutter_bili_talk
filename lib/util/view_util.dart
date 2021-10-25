@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bili_talk/widget/navigation_bar.dart';
 import 'package:flutter_statusbar_manager/flutter_statusbar_manager.dart';
 
+import 'format_util.dart';
+
 /// 带缓存的Image
 Widget cachedImage(String url, {double width, double height}) {
   return CachedNetworkImage(
@@ -41,4 +43,23 @@ void changeStatusBar(
   FlutterStatusbarManager.setStyle(statusStyle == StatusStyle.DARK_STYLE
       ? StatusBarStyle.DARK_CONTENT
       : StatusBarStyle.LIGHT_CONTENT);
+}
+
+///带文字的小图标
+smallIconText(IconData iconData, var text) {
+  var style = TextStyle(fontSize: 12, color: Colors.grey);
+  if (text is int) {
+    text = countFormat(text);
+  }
+  return [
+    Icon(
+      iconData,
+      color: Colors.grey,
+      size: 12,
+    ),
+    Text(
+      ' $text',
+      style: style,
+    )
+  ];
 }
