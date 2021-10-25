@@ -363,6 +363,7 @@ class _MaterialControlsState extends State<MaterialControls>
     );
   }
 
+  // 点击视频空白区域会调用到
   Widget _buildHitArea() {
     final bool isFinished = _latestValue.position >= _latestValue.duration;
 
@@ -378,7 +379,8 @@ class _MaterialControlsState extends State<MaterialControls>
                   _cancelAndRestartTimer();
                 }
               } else {
-                _playPause();
+                //点空白区域暂停播放
+                //_playPause();
 
                 setState(() {
                   notifier.hideStuff = true;

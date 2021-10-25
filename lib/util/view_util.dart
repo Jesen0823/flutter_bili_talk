@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bili_talk/widget/navigation_bar.dart';
+import 'package:flutter_statusbar_manager/flutter_statusbar_manager.dart';
 
 /// 带缓存的Image
 Widget cachedImage(String url, {double width, double height}) {
@@ -29,4 +31,14 @@ blackLineGradient({bool fromTop = false}) {
       Colors.transparent,
     ],
   );
+}
+
+///修改状态栏
+void changeStatusBar(
+    {color: Colors.white, StatusStyle statusStyle: StatusStyle.DARK_STYLE}) {
+  //沉浸式状态栏样式
+  FlutterStatusbarManager.setColor(color, animated: false);
+  FlutterStatusbarManager.setStyle(statusStyle == StatusStyle.DARK_STYLE
+      ? StatusBarStyle.DARK_CONTENT
+      : StatusBarStyle.LIGHT_CONTENT);
 }
