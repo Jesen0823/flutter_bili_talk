@@ -79,7 +79,7 @@ SizedBox hiSpace({double height: 1, double width: 1}) {
 }
 
 /// 底部阴影
-BoxDecoration bottomBoxShadow(BuildContext context) {
+BoxDecoration bottomBoxShadow() {
   return BoxDecoration(
     color: Colors.white,
     boxShadow: [
