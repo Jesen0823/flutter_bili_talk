@@ -18,7 +18,7 @@ class HiFlexibleHeader extends StatefulWidget {
 
 class _HiFlexibleHeaderState extends State<HiFlexibleHeader> {
   // header距离底部的距离
-  static const double MAX_BOTTOM = 30;
+  static const double MAX_BOTTOM = 40;
   static const double MIN_BOTTOM = 10;
 
   // 滚动范围
@@ -57,7 +57,7 @@ class _HiFlexibleHeaderState extends State<HiFlexibleHeader> {
       child: Row(
         children: [
           ClipRRect(
-            borderRadius: BorderRadius.circular(28),
+            borderRadius: BorderRadius.circular(23),
             child: cachedImage(widget.face, width: 46, height: 46),
           ),
           hiSpace(width: 8),
@@ -68,6 +68,5 @@ class _HiFlexibleHeaderState extends State<HiFlexibleHeader> {
         ],
       ),
     );
-    ;
   }
 }

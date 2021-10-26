@@ -30,10 +30,14 @@ class _HomeTabPageState
   }
 
   _banner() {
-    return Padding(
+    /*return Padding(
       padding: EdgeInsets.only(left: 5, right: 8),
       child: HiBanner(widget.bannerList),
-    );
+    );*/
+
+    // banner之间添加间距
+    return HiBanner(widget.bannerList,
+        padding: EdgeInsets.only(left: 5, right: 5));
   }
 
   @override

@@ -5,6 +5,7 @@ import 'package:flutter_bili_talk/http/dao/profile_dao.dart';
 import 'package:flutter_bili_talk/model/profile_model.dart';
 import 'package:flutter_bili_talk/util/toast.dart';
 import 'package:flutter_bili_talk/util/view_util.dart';
+import 'package:flutter_bili_talk/widget/hi_banner.dart';
 import 'package:flutter_bili_talk/widget/hi_blur.dart';
 import 'package:flutter_bili_talk/widget/hi_flexible_header.dart';
 
@@ -16,7 +17,8 @@ class ProfilePage extends StatefulWidget {
   _ProfilePageState createState() => _ProfilePageState();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
+class _ProfilePageState extends State<ProfilePage>
+    with AutomaticKeepAliveClientMixin {
   ProfileModel _profileModel;
   ScrollController _controller = ScrollController();
 
@@ -28,44 +30,22 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
+
     return Scaffold(
       body: NestedScrollView(
-        controller: _controller,
-        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-          return <Widget>[
-            SliverAppBar(
-              expandedHeight: 160, //扩展高度
-              pinned: true, // 标题栏是否固定
-              // 固定空间
-              flexibleSpace: FlexibleSpaceBar(
-                collapseMode: CollapseMode.parallax,
-                titlePadding: EdgeInsets.only(left: 0),
-                title: _buildHead(),
-                background: Stack(
-                  children: [
-                    Positioned.fill(
-                        child: cachedImage(
-                            'http://image.biaobaiju.com/uploads/20200731/ccf53c0b7b8ee1088c46238d154456bd.jpg')),
-                    Positioned.fill(
-                      child: HiBlur(
-                        sigma: 16,
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            ),
-          ];
-        },
-        body: ListView.builder(
-          itemBuilder: (BuildContext context, int index) {
-            return ListTile(
-              title: Text('标题$index'),
-            );
+          controller: _controller,
+          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+            return <Widget>[
+              _buildAppBar(),
+            ];
           },
-          itemCount: 20,
-        ),
-      ),
+          body: ListView(
+            padding: EdgeInsets.only(top: 10),
+            children: [
+              ..._buildContentList(),
+            ],
+          )),
     );
   }
 
@@ -93,5 +73,93 @@ class _ProfilePageState extends State<ProfilePage> {
         name: _profileModel.name,
         face: _profileModel.face,
         controller: _controller);
+  }
+
+  _buildAppBar() {
+    return SliverAppBar(
+      expandedHeight: 160, //扩展高度
+      pinned: true, // 标题栏是否固定
+      // 固定空间
+      flexibleSpace: FlexibleSpaceBar(
+        collapseMode: CollapseMode.parallax,
+        titlePadding: EdgeInsets.only(left: 0),
+        title: _buildHead(),
+        background: Stack(
+          children: [
+            Positioned.fill(
+                child: cachedImage(
+                    'http://image.biaobaiju.com/uploads/20200731/ccf53c0b7b8ee1088c46238d154456bd.jpg')),
+            Positioned.fill(
+              child: HiBlur(
+                sigma: 16,
+              ),
+            ),
+            Positioned(
+              bottom: 0,
+              left: 0,
+              right: 0,
+              child: _buildProfileTab(),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  @override
+  bool get wantKeepAlive => true;
+
+  _buildContentList() {
+    if (_profileModel == null) {
+      return [];
+    }
+    return [
+      _buildBanner(),
+    ];
+  }
+
+  _buildBanner() {
+    return HiBanner(
+      _profileModel.bannerList,
+      bannerHeight: 120,
+      padding: EdgeInsets.only(left: 10, right: 10),
+    );
+  }
+
+  /// 用户资产
+  _buildProfileTab() {
+    if (_profileModel == null) {
+      return Container();
+    }
+    return Container(
+      padding: EdgeInsets.only(top: 5, bottom: 5),
+      decoration: BoxDecoration(color: Colors.white60),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          _buildIconText('收藏', _profileModel.favorite),
+          _buildIconText('点赞', _profileModel.like),
+          _buildIconText('浏览', _profileModel.browsing),
+          _buildIconText('金币', _profileModel.coin),
+          _buildIconText('粉丝', _profileModel.fans),
+        ],
+      ),
+    );
+  }
+
+  /// 资产详情
+  _buildIconText(String text, int num) {
+    return Column(
+      children: [
+        Text(
+          '$num',
+          style: TextStyle(fontSize: 15, color: Colors.black87),
+        ),
+        Text(
+          '$text',
+          style: TextStyle(fontSize: 12, color: Colors.grey[600]),
+        ),
+      ],
+    );
   }
 }
