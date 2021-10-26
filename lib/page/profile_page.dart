@@ -8,6 +8,7 @@ import 'package:flutter_bili_talk/util/view_util.dart';
 import 'package:flutter_bili_talk/widget/hi_banner.dart';
 import 'package:flutter_bili_talk/widget/hi_blur.dart';
 import 'package:flutter_bili_talk/widget/hi_flexible_header.dart';
+import 'package:flutter_bili_talk/widget/profile_benefit_card.dart';
 import 'package:flutter_bili_talk/widget/profile_card.dart';
 
 /// 个人中心页面
@@ -119,6 +120,9 @@ class _ProfilePageState extends State<ProfilePage>
       ProfileCard(
         courseList: _profileModel.courseList,
       ),
+      ProfileBenefitCard(
+        benefitList: _profileModel.benefitList,
+      )
     ];
   }
 
