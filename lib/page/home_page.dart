@@ -78,6 +78,7 @@ class _HomePageState extends HiState<HomePage>
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
       body: Container(
         child: Column(
@@ -89,7 +90,7 @@ class _HomePageState extends HiState<HomePage>
               statusStyle: StatusStyle.DARK_STYLE,
             ),
             Container(
-              color: Colors.white,
+              decoration: bottomBoxShadow(context),
               child: _tabBar(),
             ),
             Flexible(
