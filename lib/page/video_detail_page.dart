@@ -1,7 +1,11 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bili_talk/http/core/hi_error.dart';
+import 'package:flutter_bili_talk/http/dao/video_detail_dao.dart';
+import 'package:flutter_bili_talk/model/video_detail_model.dart';
 import 'package:flutter_bili_talk/model/video_model.dart';
+import 'package:flutter_bili_talk/util/toast.dart';
 import 'package:flutter_bili_talk/util/view_util.dart';
 import 'package:flutter_bili_talk/widget/app_bar.dart';
 import 'package:flutter_bili_talk/widget/expendable_content.dart';
@@ -25,12 +29,16 @@ class _VideoDetailPageState extends State<VideoDetailPage>
   TabController _tabController;
   List tabs = ['简介', '评论'];
 
+  // 详情页数据model
+  VideoDetailModel videoDetailModel;
+
   @override
   void initState() {
     super.initState();
     // 为Android设置黑色状态栏
     changeStatusBar(color: Colors.black, statusStyle: StatusStyle.LIGHT_STYLE);
     _tabController = TabController(length: tabs.length, vsync: this);
+    _loadDetailData();
   }
 
   @override
@@ -143,5 +151,22 @@ class _VideoDetailPageState extends State<VideoDetailPage>
         videoModel: widget.videoModel,
       ),
     ];
+  }
+
+  // 数据加载
+  void _loadDetailData() async {
+    try {
+      VideoDetailModel result = await VideoDetailDao.get(widget.videoModel.vid);
+      print('video detail loadData result: $result');
+      setState(() {
+        videoDetailModel = result;
+      });
+    } on NeedAuth catch (e) {
+      print('video detail request: $e');
+      showWarnToast(e.message);
+    } on HiNetError catch (e) {
+      print('video detail request: $e');
+      showWarnToast(e.message);
+    }
   }
 }
