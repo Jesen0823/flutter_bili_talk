@@ -2,12 +2,15 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bili_talk/http/core/hi_error.dart';
+import 'package:flutter_bili_talk/http/dao/favorite_dao.dart';
+import 'package:flutter_bili_talk/http/dao/like_dao.dart';
 import 'package:flutter_bili_talk/http/dao/video_detail_dao.dart';
 import 'package:flutter_bili_talk/model/video_detail_model.dart';
 import 'package:flutter_bili_talk/model/video_model.dart';
 import 'package:flutter_bili_talk/util/toast.dart';
 import 'package:flutter_bili_talk/util/view_util.dart';
 import 'package:flutter_bili_talk/widget/app_bar.dart';
+import 'package:flutter_bili_talk/widget/detail_interaction_bar.dart';
 import 'package:flutter_bili_talk/widget/expendable_content.dart';
 import 'package:flutter_bili_talk/widget/hi_tab_common.dart';
 import 'package:flutter_bili_talk/widget/navigation_bar.dart';
@@ -31,6 +34,7 @@ class _VideoDetailPageState extends State<VideoDetailPage>
 
   // 详情页数据model
   VideoDetailModel videoDetailModel;
+  VideoModel videoModelNew;
 
   @override
   void initState() {
@@ -38,6 +42,8 @@ class _VideoDetailPageState extends State<VideoDetailPage>
     // 为Android设置黑色状态栏
     changeStatusBar(color: Colors.black, statusStyle: StatusStyle.LIGHT_STYLE);
     _tabController = TabController(length: tabs.length, vsync: this);
+
+    videoModelNew = widget.videoModel;
     _loadDetailData();
   }
 
@@ -53,32 +59,34 @@ class _VideoDetailPageState extends State<VideoDetailPage>
         body: MediaQuery.removePadding(
       removeTop: Platform.isIOS,
       context: context,
-      child: Column(
-        children: [
-          NavigationBar(
-            color: Colors.black,
-            statusStyle: StatusStyle.LIGHT_STYLE,
-            height: Platform.isAndroid ? 0 : 46,
-          ),
-          _buildVideoView(),
-          _buildTabNavigation(),
-          Flexible(
-              child: TabBarView(
-            controller: _tabController,
-            children: [
-              _buildDetailList(),
-              Container(
-                child: Text('开发中...'),
-              ),
-            ],
-          ))
-        ],
-      ),
+      child: videoModelNew.url != null
+          ? Column(
+              children: [
+                NavigationBar(
+                  color: Colors.black,
+                  statusStyle: StatusStyle.LIGHT_STYLE,
+                  height: Platform.isAndroid ? 0 : 46,
+                ),
+                _buildVideoView(),
+                _buildTabNavigation(),
+                Flexible(
+                    child: TabBarView(
+                  controller: _tabController,
+                  children: [
+                    _buildDetailList(),
+                    Container(
+                      child: Text('开发中...'),
+                    ),
+                  ],
+                ))
+              ],
+            )
+          : Container(),
     ));
   }
 
   _buildVideoView() {
-    var model = widget.videoModel;
+    var model = videoModelNew;
     return VideoView(
       model.url,
       cover: model.cover,
@@ -144,11 +152,18 @@ class _VideoDetailPageState extends State<VideoDetailPage>
     return [
       Container(
         child: VideoHeader(
-          owner: widget.videoModel.owner,
+          owner: videoModelNew.owner,
         ),
       ),
       ExpandableContent(
-        videoModel: widget.videoModel,
+        videoModel: videoModelNew,
+      ),
+      InteractionToolBar(
+        detailModel: videoDetailModel,
+        videoModel: videoModelNew,
+        onLike: _doLike,
+        onUnLike: _doUnLike,
+        onFavorite: _doFavorite,
       ),
     ];
   }
@@ -156,16 +171,75 @@ class _VideoDetailPageState extends State<VideoDetailPage>
   // 数据加载
   void _loadDetailData() async {
     try {
-      VideoDetailModel result = await VideoDetailDao.get(widget.videoModel.vid);
+      VideoDetailModel result = await VideoDetailDao.get(videoModelNew.vid);
       print('video detail loadData result: $result');
       setState(() {
         videoDetailModel = result;
+        // 将VideoModel更新为详情页接口最新的数据
+        videoModelNew = result.videoModel;
       });
     } on NeedAuth catch (e) {
       print('video detail request: $e');
       showWarnToast(e.message);
     } on HiNetError catch (e) {
       print('video detail request: $e');
+      showWarnToast(e.message);
+    }
+  }
+
+  /// 点赞
+  void _doLike() async {
+    try {
+      var result =
+          await LikeDao.like(videoModelNew.vid, !videoDetailModel.isLike);
+      print('support like request result,: $result');
+      // 更新点赞状态
+      videoDetailModel.isLike = !videoDetailModel.isLike;
+      if (videoDetailModel.isLike) {
+        videoModelNew.like += 1;
+      } else {
+        videoModelNew.like -= 1;
+      }
+      setState(() {
+        videoDetailModel = videoDetailModel;
+        videoModelNew = videoModelNew;
+      });
+      showToast(result['msg']);
+    } on NeedAuth catch (e) {
+      print('like request: $e');
+      showWarnToast(e.message);
+    } on HiNetError catch (e) {
+      print('like request: $e');
+      showWarnToast(e.message);
+    }
+  }
+
+  /// 踩
+  void _doUnLike() {}
+
+  /// 收藏
+  void _doFavorite() async {
+    try {
+      var result = await FavoriteDao.favorite(
+          videoModelNew.vid, !videoDetailModel.isFavorite);
+      print('favorite request result,: $result');
+      // 更新收藏状态
+      videoDetailModel.isFavorite = !videoDetailModel.isFavorite;
+      if (videoDetailModel.isFavorite) {
+        videoModelNew.favorite += 1;
+      } else {
+        videoModelNew.favorite -= 1;
+      }
+      setState(() {
+        videoDetailModel = videoDetailModel;
+        videoModelNew = videoModelNew;
+      });
+      showToast(result['msg']);
+    } on NeedAuth catch (e) {
+      print('favorite request: $e');
+      showWarnToast(e.message);
+    } on HiNetError catch (e) {
+      print('favorite request: $e');
       showWarnToast(e.message);
     }
   }
