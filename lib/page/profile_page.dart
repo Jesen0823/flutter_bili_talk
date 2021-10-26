@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bili_talk/http/core/hi_error.dart';
 import 'package:flutter_bili_talk/http/dao/profile_dao.dart';
 import 'package:flutter_bili_talk/model/profile_model.dart';
-import 'package:flutter_bili_talk/util/color.dart';
 import 'package:flutter_bili_talk/util/toast.dart';
 import 'package:flutter_bili_talk/util/view_util.dart';
+import 'package:flutter_bili_talk/widget/hi_blur.dart';
+import 'package:flutter_bili_talk/widget/hi_flexible_header.dart';
 
 /// 个人中心页面
 class ProfilePage extends StatefulWidget {
@@ -17,6 +18,8 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   ProfileModel _profileModel;
+  ScrollController _controller = ScrollController();
+
   @override
   void initState() {
     super.initState();
@@ -27,6 +30,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: NestedScrollView(
+        controller: _controller,
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
             SliverAppBar(
@@ -34,10 +38,20 @@ class _ProfilePageState extends State<ProfilePage> {
               pinned: true, // 标题栏是否固定
               // 固定空间
               flexibleSpace: FlexibleSpaceBar(
+                collapseMode: CollapseMode.parallax,
                 titlePadding: EdgeInsets.only(left: 0),
                 title: _buildHead(),
-                background: Container(
-                  color: primary,
+                background: Stack(
+                  children: [
+                    Positioned.fill(
+                        child: cachedImage(
+                            'http://image.biaobaiju.com/uploads/20200731/ccf53c0b7b8ee1088c46238d154456bd.jpg')),
+                    Positioned.fill(
+                      child: HiBlur(
+                        sigma: 16,
+                      ),
+                    )
+                  ],
                 ),
               ),
             ),
@@ -75,22 +89,9 @@ class _ProfilePageState extends State<ProfilePage> {
     if (_profileModel == null) {
       return Container();
     }
-    return Container(
-      alignment: Alignment.bottomLeft,
-      padding: EdgeInsets.only(bottom: 30, left: 10),
-      child: Row(
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(28),
-            child: cachedImage(_profileModel.face, width: 46, height: 46),
-          ),
-          hiSpace(width: 8),
-          Text(
-            _profileModel.name,
-            style: TextStyle(fontSize: 12, color: Colors.black26),
-          )
-        ],
-      ),
-    );
+    return HiFlexibleHeader(
+        name: _profileModel.name,
+        face: _profileModel.face,
+        controller: _controller);
   }
 }
