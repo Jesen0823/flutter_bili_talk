@@ -15,6 +15,7 @@ import 'package:flutter_bili_talk/widget/expendable_content.dart';
 import 'package:flutter_bili_talk/widget/hi_tab_common.dart';
 import 'package:flutter_bili_talk/widget/navigation_bar.dart';
 import 'package:flutter_bili_talk/widget/video_header.dart';
+import 'package:flutter_bili_talk/widget/video_small_card.dart';
 import 'package:flutter_bili_talk/widget/video_view.dart';
 
 class VideoDetailPage extends StatefulWidget {
@@ -31,6 +32,9 @@ class _VideoDetailPageState extends State<VideoDetailPage>
     with TickerProviderStateMixin {
   TabController _tabController;
   List tabs = ['简介', '评论'];
+
+  // 关联视频，视频列表
+  List<VideoModel> videoList = [];
 
   // 详情页数据model
   VideoDetailModel videoDetailModel;
@@ -137,13 +141,7 @@ class _VideoDetailPageState extends State<VideoDetailPage>
       padding: EdgeInsets.all(0),
       children: [
         ...buildContents(),
-        Container(
-          height: 500,
-          margin: EdgeInsets.only(top: 10),
-          alignment: Alignment.topLeft,
-          decoration: BoxDecoration(color: Colors.lightBlueAccent),
-          child: Text('展开列表'),
-        ),
+        ...buildVideoList(),
       ],
     );
   }
@@ -177,6 +175,7 @@ class _VideoDetailPageState extends State<VideoDetailPage>
         videoDetailModel = result;
         // 将VideoModel更新为详情页接口最新的数据
         videoModelNew = result.videoModel;
+        videoList = result.videoList;
       });
     } on NeedAuth catch (e) {
       print('video detail request: $e');
@@ -242,5 +241,11 @@ class _VideoDetailPageState extends State<VideoDetailPage>
       print('favorite request: $e');
       showWarnToast(e.message);
     }
+  }
+
+  buildVideoList() {
+    return videoList
+        .map((VideoModel vm) => VideoSmallCard(videoModel: vm))
+        .toList();
   }
 }
