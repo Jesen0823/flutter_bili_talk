@@ -8,6 +8,7 @@ import 'package:flutter_bili_talk/util/view_util.dart';
 import 'package:flutter_bili_talk/widget/hi_banner.dart';
 import 'package:flutter_bili_talk/widget/hi_blur.dart';
 import 'package:flutter_bili_talk/widget/hi_flexible_header.dart';
+import 'package:flutter_bili_talk/widget/profile_card.dart';
 
 /// 个人中心页面
 class ProfilePage extends StatefulWidget {
@@ -88,10 +89,10 @@ class _ProfilePageState extends State<ProfilePage>
           children: [
             Positioned.fill(
                 child: cachedImage(
-                    'http://image.biaobaiju.com/uploads/20200731/ccf53c0b7b8ee1088c46238d154456bd.jpg')),
+                    'http://image.biaobaiju.com/uploads/20180303/01/1520011785-GVrsLbMfYq.jpg')),
             Positioned.fill(
               child: HiBlur(
-                sigma: 16,
+                sigma: 20,
               ),
             ),
             Positioned(
@@ -115,6 +116,9 @@ class _ProfilePageState extends State<ProfilePage>
     }
     return [
       _buildBanner(),
+      ProfileCard(
+        courseList: _profileModel.courseList,
+      ),
     ];
   }
 
@@ -133,7 +137,7 @@ class _ProfilePageState extends State<ProfilePage>
     }
     return Container(
       padding: EdgeInsets.only(top: 5, bottom: 5),
-      decoration: BoxDecoration(color: Colors.white60),
+      decoration: BoxDecoration(color: Colors.white54),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
