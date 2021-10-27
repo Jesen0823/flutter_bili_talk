@@ -1,7 +1,10 @@
+import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bili_talk/model/profile_model.dart';
+import 'package:flutter_bili_talk/navigator/hi_navigator.dart';
 import 'package:flutter_bili_talk/util/view_util.dart';
 import 'package:flutter_bili_talk/widget/hi_blur.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 // 个人中心增值服务卡片
 class ProfileBenefitCard extends StatelessWidget {
@@ -63,7 +66,19 @@ class ProfileBenefitCard extends StatelessWidget {
   // 单个卡片
   _buildCard(BuildContext context, Benefit data, double width, double height) {
     return InkWell(
-        onTap: () {},
+        onTap: () {
+          if (data.name == "交流群") {
+            FlutterClipboard.copy(data.url).then((value) =>
+                Fluttertoast.showToast(
+                    msg: data.url + "群号复制成功",
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.BOTTOM,
+                    timeInSecForIosWeb: 1,
+                    textColor: Colors.white));
+          } else {
+            HiNavigator.getInstance().openH5Url(data.url);
+          }
+        },
         child: Padding(
           padding: EdgeInsets.only(right: 5, bottom: 7),
           child: ClipRRect(

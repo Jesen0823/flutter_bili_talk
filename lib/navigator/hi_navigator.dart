@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bili_talk/page/login_page.dart';
 import 'package:flutter_bili_talk/page/registration_page.dart';
 import 'package:flutter_bili_talk/page/video_detail_page.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'bottom_navigator.dart';
 
@@ -122,6 +123,19 @@ class HiNavigator extends _RouteJumpListener {
       listener(current, _current);
     });
     _current = current;
+  }
+
+  Future<void> openH5Url(String url) async {
+    if (await canLaunch(url)) {
+      await launch(
+        url,
+        forceSafariVC: false,
+        forceWebView: false,
+        headers: <String, String>{'my_header_key': 'my_header_value'},
+      );
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 }
 
