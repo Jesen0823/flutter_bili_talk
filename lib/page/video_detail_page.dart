@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bili_talk/barrage/barrage_input.dart';
+import 'package:flutter_bili_talk/barrage/barrage_switch.dart';
 import 'package:flutter_bili_talk/barrage/hi_barrage.dart';
 import 'package:flutter_bili_talk/http/core/hi_error.dart';
 import 'package:flutter_bili_talk/http/dao/favorite_dao.dart';
@@ -46,7 +47,7 @@ class _VideoDetailPageState extends State<VideoDetailPage>
   var _barrageKey = GlobalKey<HiBarrageState>();
 
   // 输入框是否打开
-  bool inputShowing = false;
+  bool _inputShowing = false;
 
   @override
   void initState() {
@@ -257,28 +258,34 @@ class _VideoDetailPageState extends State<VideoDetailPage>
   /// 详细页右上角TV按钮
   /// 点击可发送弹幕
   _buildBarrageBtn() {
-    return InkWell(
-      onTap: () {
-        // 弹出输入框
-        HiOverlay.show(
-          context,
-          child: BarrageInput(onTabClose: () {
-            setState(() {
-              inputShowing = true;
-            });
-          }),
-        ).then((value) {
-          print('input content is : $value');
-          _barrageKey.currentState.send(value);
+    return BarrageSwitch(
+        inoutShowing: _inputShowing, // 默认是否展示‘输入中’
+        onShowInput: () {
+          setState(() {
+            _inputShowing = true;
+          });
+
+          // 弹出输入框
+          HiOverlay.show(
+            context,
+            child: BarrageInput(onTabClose: () {
+              setState(() {
+                _inputShowing = false;
+              });
+            }),
+          ).then((value) {
+            print('input content is : $value');
+            // 发送弹幕
+            _barrageKey.currentState.send(value);
+          });
+        },
+        // 弹幕播放暂停
+        onBarrageSwitch: (open) {
+          if (open) {
+            _barrageKey.currentState.play();
+          } else {
+            _barrageKey.currentState.pause();
+          }
         });
-      },
-      child: Padding(
-        padding: EdgeInsets.only(right: 20),
-        child: Icon(
-          Icons.live_tv_rounded,
-          color: Colors.grey,
-        ),
-      ),
-    );
   }
 }
