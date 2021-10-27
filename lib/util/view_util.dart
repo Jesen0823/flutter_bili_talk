@@ -37,7 +37,7 @@ blackLineGradient({bool fromTop = false}) {
 
 ///修改状态栏
 void changeStatusBar(
-    {color: Colors.white, StatusStyle statusStyle: StatusStyle.DARK_STYLE}) {
+    {color: Colors.black, StatusStyle statusStyle: StatusStyle.DARK_STYLE}) {
   //沉浸式状态栏样式
   FlutterStatusbarManager.setColor(color, animated: false);
   FlutterStatusbarManager.setStyle(statusStyle == StatusStyle.DARK_STYLE
@@ -86,7 +86,7 @@ BoxDecoration bottomBoxShadow() {
       BoxShadow(
         color: Colors.grey[100],
         offset: Offset(0, 5), //xy轴偏移
-        blurRadius: 5.0, //阴影模糊程度
+        blurRadius: 5, //阴影模糊程度
         spreadRadius: 1, //阴影扩散程度
       )
     ],

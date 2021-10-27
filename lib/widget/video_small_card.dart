@@ -50,7 +50,7 @@ class VideoSmallCard extends StatelessWidget {
                     borderRadius: BorderRadius.circular(2)),
                 child: Text(
                   durationTransform(videoModel.duration),
-                  style: TextStyle(fontSize: 10),
+                  style: TextStyle(fontSize: 10, color: Colors.white),
                 ),
               ))
         ],

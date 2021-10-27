@@ -39,9 +39,9 @@ class _RankingPageState extends State<RankingPage>
   _buildNavigationBar() {
     return NavigationBar(
       child: Container(
-        decoration: bottomBoxShadow(),
         alignment: Alignment.center,
         child: _tabBar(),
+        decoration: bottomBoxShadow(),
       ),
     );
   }
@@ -63,7 +63,7 @@ class _RankingPageState extends State<RankingPage>
       child: TabBarView(
         controller: _controller,
         children: tabs.map((tab) {
-          return RankingTabPage(sort: tab['key'] as String);
+          return RankingTabPage(sort: tab['key']);
         }).toList(),
       ),
     );
@@ -72,11 +72,13 @@ class _RankingPageState extends State<RankingPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          _buildNavigationBar(),
-          _buildTabView(),
-        ],
+      body: Container(
+        child: Column(
+          children: [
+            _buildNavigationBar(),
+            _buildTabView(),
+          ],
+        ),
       ),
     );
   }

@@ -25,7 +25,6 @@ class _RankingTabPageState
   @override
   get contentChild => Container(
         child: ListView.builder(
-          // 列表未铺满屏幕时禁止上拉加载更多
           physics: AlwaysScrollableScrollPhysics(),
           padding: EdgeInsets.only(top: 10),
           itemCount: dataList.length,

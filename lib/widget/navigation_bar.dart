@@ -12,7 +12,11 @@ class NavigationBar extends StatefulWidget {
   final Widget child;
 
   const NavigationBar(
-      {Key key, this.statusStyle, this.color, this.height, this.child})
+      {Key key,
+      this.statusStyle = StatusStyle.DARK_STYLE,
+      this.color = Colors.white,
+      this.height = 46,
+      this.child})
       : super(key: key);
 
   @override
