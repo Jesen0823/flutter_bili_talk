@@ -28,6 +28,7 @@ class HiSocket implements ISocket {
 
   @override
   ISocket open(String vid) {
+    // 建立socket连接
     _channel = IOWebSocketChannel.connect(_URL + vid,
         headers: _headers(), pingInterval: Duration(seconds: _intervalSeconds));
     _channel.stream.handleError((error) {
@@ -35,6 +36,7 @@ class HiSocket implements ISocket {
     }).listen((message) {
       _handleMessage(message);
     });
+    return this;
   }
 
   @override

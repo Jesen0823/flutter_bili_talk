@@ -28,6 +28,7 @@ class BarrageTransitionState extends State<BarrageTransition>
     // 创建动画控制器
     _animationController =
         AnimationController(duration: widget.duration, vsync: this)
+          // 级联表达式
           ..addStatusListener((status) {
             // 动画状态执行完毕回调
             if (status == AnimationStatus.completed) {

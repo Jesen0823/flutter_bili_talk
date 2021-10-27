@@ -8,7 +8,7 @@ import 'package:flutter_bili_talk/barrage/hi_socket.dart';
 import 'package:flutter_bili_talk/barrage/i_barrage.dart';
 import 'package:flutter_bili_talk/model/barrage_model.dart';
 
-enum BarrageStatus { play, pause }
+enum BarrageStatus { PLAY, PAUSE }
 
 /// 弹幕组件
 class HiBarrage extends StatefulWidget {
@@ -82,13 +82,13 @@ class HiBarrageState extends State<HiBarrage> with IBarrage {
     }
 
     // 收到弹幕,进行播放
-    if (_barrageStatus == BarrageStatus.play) {
+    if (_barrageStatus == BarrageStatus.PLAY) {
       play();
       return;
     }
 
     // 如果是新弹幕
-    if (widget.autoPlay && _barrageStatus != BarrageStatus.pause) {
+    if (widget.autoPlay && _barrageStatus != BarrageStatus.PAUSE) {
       play();
     }
   }
@@ -107,7 +107,7 @@ class HiBarrageState extends State<HiBarrage> with IBarrage {
 
   /// 弹幕播放
   void play() {
-    _barrageStatus = BarrageStatus.play;
+    _barrageStatus = BarrageStatus.PLAY;
     print('danmu startPlay');
     if (_timer != null && _timer.isActive) {
       return;
@@ -120,9 +120,6 @@ class HiBarrageState extends State<HiBarrage> with IBarrage {
         var temp = _barrageModelList.removeAt(0);
         addBarrage(temp);
         print('danmu start: ${temp.content}');
-      } else {
-        print('danmu all barrages been sent.');
-        _timer.cancel();
       }
     });
   }
@@ -150,7 +147,7 @@ class HiBarrageState extends State<HiBarrage> with IBarrage {
 
   @override
   void pause() {
-    _barrageStatus = BarrageStatus.pause;
+    _barrageStatus = BarrageStatus.PAUSE;
     // 清空屏幕上的弹幕
     _barrageModelList.clear();
     setState(() {

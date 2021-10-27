@@ -7,7 +7,9 @@ class BarrageItem extends StatelessWidget {
   final String id;
   final double top;
   final Widget child;
+  // 播放完成
   final ValueChanged onComplete;
+  // 弹幕滚动时长
   final Duration duration;
 
   // key 防止动画错乱
@@ -25,13 +27,14 @@ class BarrageItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Positioned.fill(
+        top: top,
         child: BarrageTransition(
-      key: _key,
-      child: child,
-      onComplete: (V) {
-        onComplete(id);
-      },
-      duration: duration,
-    ));
+          key: _key,
+          child: child,
+          onComplete: (V) {
+            onComplete(id);
+          },
+          duration: duration,
+        ));
   }
 }
