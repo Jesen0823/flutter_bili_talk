@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bili_talk/barrage/hi_socket.dart';
 import 'package:flutter_bili_talk/http/core/hi_error.dart';
 import 'package:flutter_bili_talk/http/dao/favorite_dao.dart';
 import 'package:flutter_bili_talk/http/dao/like_dao.dart';
@@ -35,6 +36,7 @@ class _VideoDetailPageState extends State<VideoDetailPage>
 
   // 关联视频，视频列表
   List<VideoModel> videoList = [];
+  HiSocket _hiSocket;
 
   // 详情页数据model
   VideoDetailModel videoDetailModel;
@@ -49,11 +51,13 @@ class _VideoDetailPageState extends State<VideoDetailPage>
 
     videoModelNew = widget.videoModel;
     _loadDetailData();
+    _initSocket();
   }
 
   @override
   void dispose() {
     _tabController.dispose();
+    _hiSocket.close();
     super.dispose();
   }
 
@@ -247,5 +251,12 @@ class _VideoDetailPageState extends State<VideoDetailPage>
     return videoList
         .map((VideoModel vm) => VideoSmallCard(videoModel: vm))
         .toList();
+  }
+
+  void _initSocket() {
+    _hiSocket = HiSocket();
+    _hiSocket.open(videoModelNew.vid).listen((value) {
+      print('[Flut] detail socket receive: $value');
+    });
   }
 }
