@@ -47,6 +47,7 @@ dependencies:
   url_launcher: ^5.7.10 #打开第三方app的插件
   clipboard: ^0.1.2+8 #剪贴板
   web_socket_channel: '>=1.1.0 <=2.1.0' # 用于实现弹幕
+  flutter_overlay: ^1.0.0 # 发送弹幕软键盘适配
 
 
 dev_dependencies:

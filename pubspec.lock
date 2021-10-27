@@ -265,6 +265,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.0.0"
+  flutter_overlay:
+    dependency: "direct main"
+    description:
+      name: flutter_overlay
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.0.0"
   flutter_page_indicator:
     dependency: transitive
     description:

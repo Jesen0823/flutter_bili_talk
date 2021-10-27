@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bili_talk/barrage/barrage_input.dart';
 import 'package:flutter_bili_talk/barrage/hi_barrage.dart';
 import 'package:flutter_bili_talk/http/core/hi_error.dart';
 import 'package:flutter_bili_talk/http/dao/favorite_dao.dart';
@@ -18,6 +19,7 @@ import 'package:flutter_bili_talk/widget/navigation_bar.dart';
 import 'package:flutter_bili_talk/widget/video_header.dart';
 import 'package:flutter_bili_talk/widget/video_small_card.dart';
 import 'package:flutter_bili_talk/widget/video_view.dart';
+import 'package:flutter_overlay/flutter_overlay.dart';
 
 class VideoDetailPage extends StatefulWidget {
   final VideoModel videoModel;
@@ -42,6 +44,9 @@ class _VideoDetailPageState extends State<VideoDetailPage>
   VideoModel videoModelNew;
 
   var _barrageKey = GlobalKey<HiBarrageState>();
+
+  // 输入框是否打开
+  bool inputShowing = false;
 
   @override
   void initState() {
@@ -118,13 +123,7 @@ class _VideoDetailPageState extends State<VideoDetailPage>
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             _tabBar(),
-            Padding(
-              padding: EdgeInsets.only(right: 20),
-              child: Icon(
-                Icons.live_tv_rounded,
-                color: Colors.grey,
-              ),
-            ),
+            _buildBarrageBtn(),
           ],
         ),
       ),
@@ -253,5 +252,33 @@ class _VideoDetailPageState extends State<VideoDetailPage>
     return videoList
         .map((VideoModel vm) => VideoSmallCard(videoModel: vm))
         .toList();
+  }
+
+  /// 详细页右上角TV按钮
+  /// 点击可发送弹幕
+  _buildBarrageBtn() {
+    return InkWell(
+      onTap: () {
+        // 弹出输入框
+        HiOverlay.show(
+          context,
+          child: BarrageInput(onTabClose: () {
+            setState(() {
+              inputShowing = true;
+            });
+          }),
+        ).then((value) {
+          print('input content is : $value');
+          _barrageKey.currentState.send(value);
+        });
+      },
+      child: Padding(
+        padding: EdgeInsets.only(right: 20),
+        child: Icon(
+          Icons.live_tv_rounded,
+          color: Colors.grey,
+        ),
+      ),
+    );
   }
 }
