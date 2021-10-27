@@ -21,7 +21,7 @@ class HiSocket implements ISocket {
   }
 
   @override
-  ISocket listen(ValueChanged<List<BarrageModel>> callBack) {
+  ISocket listen(callBack) {
     _callBack = callBack;
     return this;
   }
@@ -33,7 +33,7 @@ class HiSocket implements ISocket {
     _channel.stream.handleError((error) {
       print('[Flut] socket error: $error');
     }).listen((message) {
-      handleMessage(message);
+      _handleMessage(message);
     });
   }
 
@@ -53,7 +53,7 @@ class HiSocket implements ISocket {
   }
 
   /// 处理弹幕返回
-  void handleMessage(event) {
+  void _handleMessage(event) {
     print('[Flut] socket message: $event');
     var result = BarrageModel.fromJsonString(event);
     if (result != null && _callBack != null) {

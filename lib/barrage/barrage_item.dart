@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'barrage_transition.dart';
+
 /// 单条弹幕Widget
 class BarrageItem extends StatelessWidget {
   final String id;
@@ -8,7 +10,10 @@ class BarrageItem extends StatelessWidget {
   final ValueChanged onComplete;
   final Duration duration;
 
-  const BarrageItem(
+  // key 防止动画错乱
+  var _key = GlobalKey<BarrageTransitionState>();
+
+  BarrageItem(
       {Key key,
       this.id,
       this.top,
@@ -19,11 +24,14 @@ class BarrageItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(top: top),
-      child: Container(
-        child: child,
-      ),
-    );
+    return Positioned.fill(
+        child: BarrageTransition(
+      key: _key,
+      child: child,
+      onComplete: (V) {
+        onComplete(id);
+      },
+      duration: duration,
+    ));
   }
 }

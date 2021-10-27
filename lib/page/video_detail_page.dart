@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bili_talk/barrage/hi_barrage.dart';
-import 'package:flutter_bili_talk/core/hi_base_tab_state.dart';
 import 'package:flutter_bili_talk/http/core/hi_error.dart';
 import 'package:flutter_bili_talk/http/dao/favorite_dao.dart';
 import 'package:flutter_bili_talk/http/dao/like_dao.dart';
@@ -42,7 +41,7 @@ class _VideoDetailPageState extends State<VideoDetailPage>
   VideoDetailModel videoDetailModel;
   VideoModel videoModelNew;
 
-  var _barrageKey = GlobalKey<HiBaseTabState>();
+  var _barrageKey = GlobalKey<HiBarrageState>();
 
   @override
   void initState() {

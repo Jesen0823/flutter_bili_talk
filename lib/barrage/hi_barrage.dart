@@ -28,10 +28,10 @@ class HiBarrage extends StatefulWidget {
       : super(key: key);
 
   @override
-  _HiBarrageState createState() => _HiBarrageState();
+  HiBarrageState createState() => HiBarrageState();
 }
 
-class _HiBarrageState extends State<HiBarrage> implements IBarrage {
+class HiBarrageState extends State<HiBarrage> with IBarrage {
   HiSocket _hiSocket;
   double _height;
   double _width;
@@ -143,14 +143,19 @@ class _HiBarrageState extends State<HiBarrage> implements IBarrage {
       onComplete: _onComplete,
     );
     _barrageItemList.add(item);
-    setState(() {});
+    setState(() {
+      // 刷新
+    });
   }
 
   @override
   void pause() {
     _barrageStatus = BarrageStatus.pause;
-    _barrageItemList.clear();
-    setState(() {});
+    // 清空屏幕上的弹幕
+    _barrageModelList.clear();
+    setState(() {
+      // 刷新屏幕
+    });
     print('danmu paused.');
     _timer.cancel();
   }
@@ -160,12 +165,14 @@ class _HiBarrageState extends State<HiBarrage> implements IBarrage {
     if (message == null) return;
     _hiSocket.send(message);
     // 发送完毕后展示在屏幕
-    _handleMessage(
-        [BarrageModel(content: message, vid: '-1', priority: 1, type: 1)]);
+    _handleMessage([
+      BarrageModel(content: message, vid: widget.vid, priority: 1, type: 1)
+    ]);
   }
 
   void _onComplete(id) {
     print('danmu _onComplete, $id');
+    //弹幕播放完毕将其从弹幕widget集合中剔除
     _barrageItemList.removeWhere((element) => element.id == id);
   }
 }
