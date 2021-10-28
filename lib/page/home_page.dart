@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bili_talk/core/hi_state.dart';
 import 'package:flutter_bili_talk/http/core/hi_error.dart';
@@ -228,9 +230,14 @@ class _HomePageState extends HiState<HomePage>
               ),
             ),
           )),
-          Icon(
-            Icons.explore_outlined,
-            color: Colors.grey,
+          InkWell(
+            onTap: () {
+              _testCrash();
+            },
+            child: Icon(
+              Icons.explore_outlined,
+              color: Colors.grey,
+            ),
           ),
           Padding(
             padding: EdgeInsets.only(left: 12),
@@ -242,5 +249,46 @@ class _HomePageState extends HiState<HomePage>
         ],
       ),
     );
+  }
+
+  /// 模拟异常捕获
+  void _testCrash() {
+    // 1. 捕获同步异常
+    try {
+      throw StateError('this is a exception in dart');
+    } catch (e) {
+      print(e);
+    }
+
+    // 2. 使用catchError捕获异步异常
+    Future.delayed(Duration(seconds: 3))
+        .then((value) => throw StateError('this is future a exception in dart'))
+        .catchError((e) => print(e));
+
+    // 3. 使用异步转同步的方法捕获异步异常
+    _testCrash2();
+
+    // 4. 多个异常的捕获
+    runZonedGuarded(() {
+      // 异步异常
+      Future.delayed(Duration(seconds: 3))
+          .then(
+              (value) => throw StateError('this is future a exception in dart'))
+          .catchError((e) => print(e));
+      // 同步异常
+      throw StateError(
+          'runZonedGuarded:This is second Dart exception in Future.');
+    }, (e, s) => print(e));
+  }
+
+  void _testCrash2() async {
+    try {
+      await Future.delayed(Duration(seconds: 1))
+          .then((value) =>
+              throw StateError('This is second Dart exception in Future.'))
+          .catchError((e) => print(e));
+    } catch (e) {
+      print(e);
+    }
   }
 }

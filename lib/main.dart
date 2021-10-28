@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bili_talk/db/hi_cache.dart';
 import 'package:flutter_bili_talk/http/dao/login_dao.dart';
@@ -16,6 +18,14 @@ import 'navigator/hi_navigator.dart';
 
 void main() {
   runApp(BiliApp());
+
+  ///应用程序的异常捕获
+  /*runZonedGuarded((){
+    runApp(BiliApp());
+  }, (e, s) => print(e));*/
+
+  /// 或者
+  //HiDefend().run(BiliApp());
 }
 
 class BiliApp extends StatefulWidget {
