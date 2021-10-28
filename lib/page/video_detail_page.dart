@@ -27,7 +27,7 @@ import 'package:provider/provider.dart';
 class VideoDetailPage extends StatefulWidget {
   final VideoModel videoModel;
 
-  const VideoDetailPage({Key key, this.videoModel}) : super(key: key);
+  const VideoDetailPage(this.videoModel, {Key key}) : super(key: key);
 
   @override
   _VideoDetailPageState createState() => _VideoDetailPageState();

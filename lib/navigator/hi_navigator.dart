@@ -86,6 +86,7 @@ class HiNavigator extends _RouteJumpListener {
 
   @override
   void onJumpTo(RouteStatus routeStatus, {Map args}) {
+    print('hi_navigation, routeStatus:$routeStatus, args: $args');
     _routeJump.onJumpTo(routeStatus, args: args);
   }
 
