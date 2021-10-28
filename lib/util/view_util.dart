@@ -52,13 +52,14 @@ void changeStatusBar(
       statusStyle = StatusStyle.LIGHT_STYLE;
       color = HiColor.dark_bg;
     }
-    var page = HiNavigator.getInstance().getCurrent()?.page;
-    // 解决Android切换个人中心页面状态栏变白的问题
-    if (page is ProfilePage) {
-      color = Colors.transparent;
-    } else if (page is VideoDetailPage) {
-      color = Colors.black;
-    }
+  }
+  var page = HiNavigator.getInstance().getCurrent()?.page;
+  // 解决Android切换个人中心页面状态栏变白的问题
+  if (page is ProfilePage) {
+    color = Colors.transparent;
+  } else if (page is VideoDetailPage) {
+    color = Colors.black;
+    statusStyle = StatusStyle.LIGHT_STYLE;
   }
   //沉浸式状态栏样式
   FlutterStatusbarManager.setColor(color, animated: false);

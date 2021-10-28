@@ -7,10 +7,12 @@ import 'package:flutter_bili_talk/navigator/hi_navigator.dart';
 import 'package:flutter_bili_talk/page/home_tab_page.dart';
 import 'package:flutter_bili_talk/page/profile_page.dart';
 import 'package:flutter_bili_talk/page/video_detail_page.dart';
+import 'package:flutter_bili_talk/provider/theme_provider.dart';
 import 'package:flutter_bili_talk/util/toast.dart';
 import 'package:flutter_bili_talk/util/view_util.dart';
 import 'package:flutter_bili_talk/widget/hi_tab_common.dart';
 import 'package:flutter_bili_talk/widget/navigation_bar.dart';
+import 'package:provider/provider.dart';
 
 /// 首页
 
@@ -117,6 +119,14 @@ class _HomePageState extends HiState<HomePage>
     HiNavigator.getInstance().removeListener(this.listener);
     _tabController.dispose();
     super.dispose();
+  }
+
+  /// 监听系统主题色发生变化
+  @override
+  void didChangePlatformBrightness() {
+    /// 只要不是在Widget的build方法里面，都可以用read读取provider的数据
+    context.read<ThemeProvider>().darkModeChange();
+    super.didChangePlatformBrightness();
   }
 
   // 监听生命周期的变化

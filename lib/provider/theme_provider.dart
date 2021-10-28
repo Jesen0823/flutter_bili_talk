@@ -1,20 +1,37 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_bili_talk/db/hi_cache.dart';
 import 'package:flutter_bili_talk/util/color.dart';
 import 'package:flutter_bili_talk/util/hi_contants.dart';
 
 /// 使用 provider 管理主题状态
 
-// 拓展枚举类型ThemeMode 方便保存在本地
+/// 拓展枚举类型ThemeMode 方便保存在本地
 extension ThemeModeExtension on ThemeMode {
   String get value => <String>['System', 'Light', 'Dark'][index];
 }
 
 class ThemeProvider extends ChangeNotifier {
   ThemeMode _themeMode;
+  var _platformBrightness = SchedulerBinding.instance.window.platformBrightness;
+
+  /// 系统主题颜色变化
+  void darkModeChange() {
+    var curPlatformBrightness =
+        SchedulerBinding.instance.window.platformBrightness;
+    if (_platformBrightness != curPlatformBrightness) {
+      _platformBrightness = curPlatformBrightness;
+      notifyListeners();
+    }
+  }
 
   bool isDark() {
+    if (_themeMode == ThemeMode.system) {
+      // 获取系统主题的Dark Mode
+      return SchedulerBinding.instance.window.platformBrightness ==
+          Brightness.dark;
+    }
     return _themeMode == ThemeMode.dark;
   }
 
@@ -31,7 +48,7 @@ class ThemeProvider extends ChangeNotifier {
         _themeMode = ThemeMode.light;
         break;
     }
-    return _themeMode = ThemeMode.dark;
+    return _themeMode;
   }
 
   /// 设置主题
