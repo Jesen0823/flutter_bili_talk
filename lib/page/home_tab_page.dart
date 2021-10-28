@@ -6,7 +6,7 @@ import 'package:flutter_bili_talk/model/home_model.dart';
 import 'package:flutter_bili_talk/model/video_model.dart';
 import 'package:flutter_bili_talk/widget/hi_banner.dart';
 import 'package:flutter_bili_talk/widget/video_card.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:flutter_nested/flutter_nested.dart';
 
 /// 首页顶部导航
 class HomeTabPage extends StatefulWidget {
@@ -44,7 +44,7 @@ class _HomeTabPageState
   // wantKeepAlive
   bool get wantKeepAlive => true;
 
-  @override
+  /*@override
   get contentChild => StaggeredGridView.countBuilder(
       controller: scrollController,
       padding: EdgeInsets.only(top: 10, left: 10, right: 10),
@@ -66,6 +66,22 @@ class _HomeTabPageState
         } else {
           return StaggeredTile.fit(1);
         }
+      });*/
+
+  /// HiNestedScrollView优化帧率
+  @override
+  get contentChild => HiNestedScrollView(
+      controller: scrollController,
+      itemCount: dataList.length,
+      padding: EdgeInsets.only(top: 10, left: 10, right: 10),
+      headers: [
+        if (widget.bannerList != null)
+          Padding(padding: EdgeInsets.only(bottom: 8), child: _banner())
+      ],
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2, childAspectRatio: 0.95),
+      itemBuilder: (BuildContext context, int index) {
+        return VideoCard(videoModel: dataList[index]);
       });
 
   @override
