@@ -1,8 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bili_talk/navigator/hi_navigator.dart';
+import 'package:flutter_bili_talk/page/profile_page.dart';
+import 'package:flutter_bili_talk/page/video_detail_page.dart';
+import 'package:flutter_bili_talk/provider/theme_provider.dart';
+import 'package:flutter_bili_talk/util/color.dart';
 import 'package:flutter_bili_talk/widget/navigation_bar.dart';
 import 'package:flutter_statusbar_manager/flutter_statusbar_manager.dart';
+import 'package:provider/provider.dart';
 
 import 'format_util.dart';
 
@@ -37,7 +43,23 @@ blackLineGradient({bool fromTop = false}) {
 
 ///修改状态栏
 void changeStatusBar(
-    {color: Colors.black, StatusStyle statusStyle: StatusStyle.DARK_STYLE}) {
+    {BuildContext context,
+    color: Colors.black,
+    StatusStyle statusStyle: StatusStyle.DARK_STYLE}) {
+  if (context != null) {
+    var themeProvider = context.watch<ThemeProvider>();
+    if (themeProvider.isDark()) {
+      statusStyle = StatusStyle.LIGHT_STYLE;
+      color = HiColor.dark_bg;
+    }
+    var page = HiNavigator.getInstance().getCurrent()?.page;
+    // 解决Android切换个人中心页面状态栏变白的问题
+    if (page is ProfilePage) {
+      color = Colors.transparent;
+    } else if (page is VideoDetailPage) {
+      color = Colors.black;
+    }
+  }
   //沉浸式状态栏样式
   FlutterStatusbarManager.setColor(color, animated: false);
   FlutterStatusbarManager.setStyle(statusStyle == StatusStyle.DARK_STYLE
@@ -79,7 +101,12 @@ SizedBox hiSpace({double height: 1, double width: 1}) {
 }
 
 /// 底部阴影
-BoxDecoration bottomBoxShadow() {
+BoxDecoration bottomBoxShadow(BuildContext context) {
+  // 主题色适配
+  var themeProvider = context.watch<ThemeProvider>();
+  if (themeProvider.isDark()) {
+    return null;
+  }
   return BoxDecoration(
     color: Colors.white,
     boxShadow: [

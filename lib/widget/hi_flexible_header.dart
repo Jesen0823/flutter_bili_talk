@@ -63,7 +63,7 @@ class _HiFlexibleHeaderState extends State<HiFlexibleHeader> {
           hiSpace(width: 8),
           Text(
             widget.name,
-            style: TextStyle(fontSize: 12, color: Colors.black26),
+            style: TextStyle(fontSize: 12),
           )
         ],
       ),

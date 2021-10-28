@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bili_talk/model/video_model.dart';
 import 'package:flutter_bili_talk/navigator/hi_navigator.dart';
+import 'package:flutter_bili_talk/provider/theme_provider.dart';
 import 'package:flutter_bili_talk/util/format_util.dart';
 import 'package:flutter_bili_talk/util/view_util.dart';
+import 'package:provider/provider.dart';
 
 /// 视频卡片
 class VideoCard extends StatelessWidget {
@@ -146,7 +148,9 @@ class VideoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color textColor = Colors.black87;
+    // 主题色配
+    var themeProvider = context.watch<ThemeProvider>();
+    Color textColor = themeProvider.isDark() ? Colors.white70 : Colors.black87;
     return InkWell(
       onTap: () {
         HiNavigator.getInstance().onJumpTo(

@@ -4,8 +4,10 @@ import 'package:flutter_bili_talk/http/dao/login_dao.dart';
 import 'package:flutter_bili_talk/page/login_page.dart';
 import 'package:flutter_bili_talk/page/registration_page.dart';
 import 'package:flutter_bili_talk/page/video_detail_page.dart';
+import 'package:flutter_bili_talk/provider/hi_provider.dart';
 import 'package:flutter_bili_talk/provider/theme_provider.dart';
 import 'package:flutter_bili_talk/util/toast.dart';
+import 'package:provider/provider.dart';
 
 import 'model/video_model.dart';
 import 'navigator/bottom_navigator.dart';
@@ -38,11 +40,20 @@ class _BiliAppState extends State<BiliApp> {
                 ),
               );
 
-        return MaterialApp(
-          home: widget,
-          theme: ThemeProvider().getTheme(),
-          darkTheme: ThemeProvider().getTheme(isDarkMode: true),
-          themeMode: ThemeProvider().getThemeMode(),
+        // 主题相关provider
+        return MultiProvider(
+          providers: topProviders,
+          child: Consumer<ThemeProvider>(
+            builder: (BuildContext context, ThemeProvider themeProvider,
+                Widget child) {
+              return MaterialApp(
+                home: widget,
+                theme: themeProvider.getTheme(),
+                darkTheme: themeProvider.getTheme(isDarkMode: true),
+                themeMode: themeProvider.getThemeMode(),
+              );
+            },
+          ),
         );
       },
     );

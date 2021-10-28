@@ -90,7 +90,7 @@ class _HomePageState extends HiState<HomePage>
               statusStyle: StatusStyle.DARK_STYLE,
             ),
             Container(
-              decoration: bottomBoxShadow(),
+              decoration: bottomBoxShadow(context),
               child: _tabBar(),
             ),
             Flexible(
@@ -131,7 +131,9 @@ class _HomePageState extends HiState<HomePage>
         // fixBug, 后台切到前台状态栏颜色发生变化问题
         if (!(_currentPage is VideoDetailPage)) {
           changeStatusBar(
-              color: Colors.white, statusStyle: StatusStyle.DARK_STYLE);
+              context: context,
+              color: Colors.white,
+              statusStyle: StatusStyle.DARK_STYLE);
         }
         break;
       case AppLifecycleState.paused: //界面不可见,后台

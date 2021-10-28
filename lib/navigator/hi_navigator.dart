@@ -125,6 +125,10 @@ class HiNavigator extends _RouteJumpListener {
     _current = current;
   }
 
+  RouteStatusInfo getCurrent() {
+    return _current;
+  }
+
   Future<void> openH5Url(String url) async {
     if (await canLaunch(url)) {
       await launch(
@@ -135,6 +139,15 @@ class HiNavigator extends _RouteJumpListener {
       );
     } else {
       throw 'Could not launch $url';
+    }
+  }
+
+  Future<bool> openH5(String url) async {
+    var result = await canLaunch(url);
+    if (result) {
+      return await launch(url);
+    } else {
+      return Future.value(false);
     }
   }
 }

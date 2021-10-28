@@ -48,7 +48,7 @@ dependencies:
   clipboard: ^0.1.2+8 #剪贴板
   web_socket_channel: '>=1.1.0 <=2.1.0' # 用于实现弹幕
   flutter_overlay: ^1.0.0 # 发送弹幕软键盘适配
-
+  provider: ^5.0.0  # 状态管理
 
 dev_dependencies:
   flutter_test:
