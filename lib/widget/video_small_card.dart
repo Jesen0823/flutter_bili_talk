@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bili_talk/model/video_model.dart';
 import 'package:flutter_bili_talk/navigator/hi_navigator.dart';
+import 'package:flutter_bili_talk/provider/theme_provider.dart';
 import 'package:flutter_bili_talk/util/format_util.dart';
 import 'package:flutter_bili_talk/util/view_util.dart';
+import 'package:provider/provider.dart';
 
 /// 关联视频周边视频卡片
 
@@ -12,6 +14,8 @@ class VideoSmallCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var themeProvider = context.watch<ThemeProvider>();
+
     return GestureDetector(
       onTap: () {
         HiNavigator.getInstance()
@@ -25,7 +29,8 @@ class VideoSmallCard extends StatelessWidget {
         child: Row(
           children: [
             _itemImage(context),
-            _buildContent(),
+            _buildContent(
+                themeProvider.isDark() ? Colors.white : Colors.black87),
           ],
         ),
       ),
@@ -58,7 +63,7 @@ class VideoSmallCard extends StatelessWidget {
     );
   }
 
-  _buildContent() {
+  _buildContent(Color titleColor) {
     return Expanded(
         child: Container(
       padding: EdgeInsets.only(top: 5, left: 8, bottom: 5),
@@ -68,7 +73,7 @@ class VideoSmallCard extends StatelessWidget {
         children: [
           Text(
             videoModel.title,
-            style: TextStyle(fontSize: 12, color: Colors.black87),
+            style: TextStyle(fontSize: 12, color: titleColor),
           ),
           _buildBottomPanel(),
         ],

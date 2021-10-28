@@ -10,6 +10,7 @@ import 'package:flutter_bili_talk/http/dao/like_dao.dart';
 import 'package:flutter_bili_talk/http/dao/video_detail_dao.dart';
 import 'package:flutter_bili_talk/model/video_detail_model.dart';
 import 'package:flutter_bili_talk/model/video_model.dart';
+import 'package:flutter_bili_talk/provider/theme_provider.dart';
 import 'package:flutter_bili_talk/util/toast.dart';
 import 'package:flutter_bili_talk/util/view_util.dart';
 import 'package:flutter_bili_talk/widget/app_bar.dart';
@@ -21,6 +22,7 @@ import 'package:flutter_bili_talk/widget/video_header.dart';
 import 'package:flutter_bili_talk/widget/video_small_card.dart';
 import 'package:flutter_bili_talk/widget/video_view.dart';
 import 'package:flutter_overlay/flutter_overlay.dart';
+import 'package:provider/provider.dart';
 
 class VideoDetailPage extends StatefulWidget {
   final VideoModel videoModel;
@@ -48,6 +50,7 @@ class _VideoDetailPageState extends State<VideoDetailPage>
 
   // 输入框是否打开
   bool _inputShowing = false;
+  var _tabColor;
 
   @override
   void initState() {
@@ -68,6 +71,8 @@ class _VideoDetailPageState extends State<VideoDetailPage>
 
   @override
   Widget build(BuildContext context) {
+    var themeProvider = context.watch<ThemeProvider>();
+
     return Scaffold(
         body: MediaQuery.removePadding(
       removeTop: Platform.isIOS,
@@ -81,7 +86,8 @@ class _VideoDetailPageState extends State<VideoDetailPage>
                   height: Platform.isAndroid ? 0 : 46,
                 ),
                 _buildVideoView(),
-                _buildTabNavigation(),
+                _buildTabNavigation(
+                    themeProvider.isDark() ? Colors.black12 : Colors.white),
                 Flexible(
                     child: TabBarView(
                   controller: _tabController,
@@ -110,7 +116,7 @@ class _VideoDetailPageState extends State<VideoDetailPage>
         ));
   }
 
-  _buildTabNavigation() {
+  _buildTabNavigation(Color color) {
     // 通过Material组件实现了阴影效果
     return Material(
       elevation: 5,
@@ -119,7 +125,7 @@ class _VideoDetailPageState extends State<VideoDetailPage>
         alignment: Alignment.centerLeft,
         padding: EdgeInsets.only(left: 20),
         height: 39,
-        color: Colors.white,
+        color: color,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

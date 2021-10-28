@@ -52,6 +52,7 @@ class _BiliAppState extends State<BiliApp> {
                 theme: themeProvider.getTheme(),
                 darkTheme: themeProvider.getTheme(isDarkMode: true),
                 themeMode: themeProvider.getThemeMode(),
+                title: 'flutterBili视频',
               );
             },
           ),
