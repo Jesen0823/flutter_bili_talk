@@ -3,6 +3,7 @@ import 'package:flutter_bili_talk/db/hi_cache.dart';
 import 'package:flutter_bili_talk/http/dao/login_dao.dart';
 import 'package:flutter_bili_talk/page/login_page.dart';
 import 'package:flutter_bili_talk/page/registration_page.dart';
+import 'package:flutter_bili_talk/page/theme_mode_setting.dart';
 import 'package:flutter_bili_talk/page/video_detail_page.dart';
 import 'package:flutter_bili_talk/provider/hi_provider.dart';
 import 'package:flutter_bili_talk/provider/theme_provider.dart';
@@ -108,6 +109,8 @@ class BiliRouteDelegate extends RouterDelegate<BiliRoutePath>
       page = pageWrap(RegistrationPage());
     } else if (routeStatus == RouteStatus.login) {
       page = pageWrap(LoginPage());
+    } else if (routeStatus == RouteStatus.themeSetting) {
+      page = pageWrap(ThemeModeSetting());
     }
 
     //创建一个数组，否则pages因引用没有改变路由不会生效

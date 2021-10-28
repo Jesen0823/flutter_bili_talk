@@ -10,6 +10,7 @@ import 'package:flutter_bili_talk/widget/hi_blur.dart';
 import 'package:flutter_bili_talk/widget/hi_flexible_header.dart';
 import 'package:flutter_bili_talk/widget/profile_benefit_card.dart';
 import 'package:flutter_bili_talk/widget/profile_card.dart';
+import 'package:flutter_bili_talk/widget/theme_mode_item.dart';
 
 /// 个人中心页面
 class ProfilePage extends StatefulWidget {
@@ -122,7 +123,9 @@ class _ProfilePageState extends State<ProfilePage>
       ),
       ProfileBenefitCard(
         benefitList: _profileModel.benefitList,
-      )
+      ),
+      // 夜间模式设置入口
+      ThemeModeItem(),
     ];
   }
 
