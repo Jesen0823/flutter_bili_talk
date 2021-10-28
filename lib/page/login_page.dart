@@ -31,7 +31,7 @@ class _LoginPageState extends State<LoginPage> {
       appBar: appBar('密码登录', '注册', () {
         print('right btn click');
         HiNavigator.getInstance().onJumpTo(RouteStatus.registration);
-      }),
+      }, key: Key('registerKey')),
       body: Container(
         child: ListView(
           // 自适应键盘抬起防止遮挡

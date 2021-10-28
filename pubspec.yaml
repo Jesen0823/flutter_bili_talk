@@ -50,9 +50,17 @@ dependencies:
   flutter_overlay: ^1.0.0 # 发送弹幕软键盘适配
   provider: ^5.0.0  # 状态管理
 
+#解决依赖冲突，强制覆写为同一个版本
+#dependency_overrides:
+#  archive:3.0.0
+
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  integration_test:  # 集成测试
+    sdk: flutter
+
   json_serializable: ^3.5.0 #2.json 解析
   build_runner: ^1.0.0 #3.json 解析
 

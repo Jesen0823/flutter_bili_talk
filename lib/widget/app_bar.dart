@@ -4,7 +4,7 @@ import 'package:flutter_bili_talk/util/view_util.dart';
 
 /// 自定义顶部appBar
 
-appBar(String title, String rightTitle, VoidCallback rightButtonClick) {
+appBar(String title, String rightTitle, VoidCallback rightButtonClick, {key}) {
   return AppBar(
     centerTitle: false,
     titleSpacing: 0,
@@ -15,6 +15,7 @@ appBar(String title, String rightTitle, VoidCallback rightButtonClick) {
     ),
     actions: [
       InkWell(
+        key: key,
         onTap: rightButtonClick,
         child: Container(
           padding: EdgeInsets.only(left: 15, right: 15),
