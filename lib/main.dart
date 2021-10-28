@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bili_talk/db/hi_cache.dart';
 import 'package:flutter_bili_talk/http/dao/login_dao.dart';
 import 'package:flutter_bili_talk/page/login_page.dart';
+import 'package:flutter_bili_talk/page/notice_page.dart';
 import 'package:flutter_bili_talk/page/registration_page.dart';
 import 'package:flutter_bili_talk/page/theme_mode_setting.dart';
 import 'package:flutter_bili_talk/page/video_detail_page.dart';
@@ -129,6 +130,8 @@ class BiliRouteDelegate extends RouterDelegate<BiliRoutePath>
       page = pageWrap(VideoDetailPage(videoModel));
     } else if (routeStatus == RouteStatus.registration) {
       page = pageWrap(RegistrationPage());
+    } else if (routeStatus == RouteStatus.notice) {
+      page = pageWrap(NoticePage());
     } else if (routeStatus == RouteStatus.login) {
       page = pageWrap(LoginPage());
     }

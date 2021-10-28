@@ -1,6 +1,7 @@
 //记录当前和上次打开得页面
 import 'package:flutter/material.dart';
 import 'package:flutter_bili_talk/page/login_page.dart';
+import 'package:flutter_bili_talk/page/notice_page.dart';
 import 'package:flutter_bili_talk/page/registration_page.dart';
 import 'package:flutter_bili_talk/page/theme_mode_setting.dart';
 import 'package:flutter_bili_talk/page/video_detail_page.dart';
@@ -29,7 +30,15 @@ int getPageIndex(List<MaterialPage> pages, RouteStatus routeStatus) {
 }
 
 ///定义路由封装 ，路由状态
-enum RouteStatus { login, registration, home, detail, unknown, themeSetting }
+enum RouteStatus {
+  login,
+  registration,
+  home,
+  detail,
+  unknown,
+  themeSetting,
+  notice
+}
 
 //获取page对应的RouteStates
 RouteStatus getStatus(MaterialPage page) {
@@ -41,6 +50,8 @@ RouteStatus getStatus(MaterialPage page) {
     return RouteStatus.home;
   } else if (page.child is VideoDetailPage) {
     return RouteStatus.detail;
+  } else if (page.child is NoticePage) {
+    return RouteStatus.notice;
   } else if (page.child is ThemeModeSetting) {
     return RouteStatus.themeSetting;
   } else {
