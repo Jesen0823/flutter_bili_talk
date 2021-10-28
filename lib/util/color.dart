@@ -21,3 +21,10 @@ const MaterialColor white = MaterialColor(
     900: Color(0xFFFFFFFF),
   },
 );
+
+// 主题色
+class HiColor {
+  static const Color red = Color(0xFFFF4759);
+  static const Color dark_red = Color(0xFFE03E4E);
+  static const Color dark_bg = Color(0xFF18191A);
+}
