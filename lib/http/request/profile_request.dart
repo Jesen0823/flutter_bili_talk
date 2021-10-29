@@ -1,7 +1,7 @@
-import 'package:flutter_bili_talk/http/request/base_request.dart';
+import 'hi_base_request.dart';
 
 /// 个人中心页面请求
-class ProfileRequest extends BaseRequest {
+class ProfileRequest extends HiBaseRequest {
   @override
   HttpMethod httpMethod() {
     return HttpMethod.GET;

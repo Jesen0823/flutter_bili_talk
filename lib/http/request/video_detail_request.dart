@@ -1,6 +1,6 @@
-import 'package:flutter_bili_talk/http/request/base_request.dart';
+import 'hi_base_request.dart';
 
-class VideoDetailRequest extends BaseRequest {
+class VideoDetailRequest extends HiBaseRequest {
   @override
   HttpMethod httpMethod() {
     return HttpMethod.GET;

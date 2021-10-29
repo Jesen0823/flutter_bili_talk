@@ -1,7 +1,7 @@
-import 'package:flutter_bili_talk/http/request/base_request.dart';
+import 'hi_base_request.dart';
 
 /// 收藏请求
-class FavoriteRequest extends BaseRequest {
+class FavoriteRequest extends HiBaseRequest {
   // 是否要收藏
   bool isReqFav = true;
 

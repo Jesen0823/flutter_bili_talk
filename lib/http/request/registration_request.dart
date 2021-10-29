@@ -1,8 +1,8 @@
-import 'package:flutter_bili_talk/http/request/base_request.dart';
+import 'hi_base_request.dart';
 
 /// 注册请求
 
-class RegistrationRequest extends BaseRequest {
+class RegistrationRequest extends HiBaseRequest {
   @override
   HttpMethod httpMethod() {
     return HttpMethod.POST;

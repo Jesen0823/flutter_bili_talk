@@ -1,6 +1,6 @@
-import 'package:flutter_bili_talk/http/request/base_request.dart';
+import 'hi_base_request.dart';
 
-class TestRequest extends BaseRequest {
+class TestRequest extends HiBaseRequest {
   @override
   HttpMethod httpMethod() {
     return HttpMethod.GET;

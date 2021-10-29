@@ -1,5 +1,5 @@
 import 'package:flutter_bili_talk/http/core/dio_adapter.dart';
-import 'package:flutter_bili_talk/http/request/base_request.dart';
+import 'package:flutter_bili_talk/http/request/hi_base_request.dart';
 
 import 'hi_error.dart';
 import 'hi_response.dart';
@@ -15,7 +15,7 @@ class HiNet {
     return _instance;
   }
 
-  Future fire(BaseRequest request) async {
+  Future fire(HiBaseRequest request) async {
     HiNetResponse response;
     var error;
     try {
@@ -49,7 +49,7 @@ class HiNet {
     }
   }
 
-  Future<dynamic> send<T>(BaseRequest request) async {
+  Future<dynamic> send<T>(HiBaseRequest request) async {
     print("[Flut] url:${request.url()}");
     // HiNetAdapter adapter = MockAdapter(); // 使用http
     HiNetAdapter adapter = DioAdapter(); // 使用Dio网络请求库
