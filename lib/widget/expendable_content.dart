@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bili_talk/model/video_model.dart';
-import 'package:flutter_bili_talk/util/view_util.dart';
+import 'package:hi_base/view_util.dart';
 
 /// 可展开带动画的Widget
 

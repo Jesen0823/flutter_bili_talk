@@ -5,7 +5,7 @@ import 'package:flutter_bili_talk/model/ranking_model.dart';
 import 'package:flutter_bili_talk/model/video_model.dart';
 import 'package:flutter_bili_talk/navigator/hi_navigator.dart';
 import 'package:flutter_bili_talk/page/video_detail_page.dart';
-import 'package:flutter_bili_talk/util/view_util.dart';
+import 'package:flutter_bili_talk/util/view_tool.dart';
 import 'package:flutter_bili_talk/widget/navigation_bar.dart';
 import 'package:flutter_bili_talk/widget/video_small_card.dart';
 

@@ -2,9 +2,9 @@ import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bili_talk/model/profile_model.dart';
 import 'package:flutter_bili_talk/navigator/hi_navigator.dart';
-import 'package:flutter_bili_talk/util/view_util.dart';
 import 'package:flutter_bili_talk/widget/hi_blur.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:hi_base/view_util.dart';
 
 // 个人中心增值服务卡片
 class ProfileBenefitCard extends StatelessWidget {

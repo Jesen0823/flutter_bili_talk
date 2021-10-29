@@ -2,14 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bili_talk/http/dao/profile_dao.dart';
 import 'package:flutter_bili_talk/model/profile_model.dart';
-import 'package:flutter_bili_talk/util/toast.dart';
-import 'package:flutter_bili_talk/util/view_util.dart';
+import 'package:hi_base/toast.dart';
 import 'package:flutter_bili_talk/widget/hi_banner.dart';
 import 'package:flutter_bili_talk/widget/hi_blur.dart';
 import 'package:flutter_bili_talk/widget/hi_flexible_header.dart';
 import 'package:flutter_bili_talk/widget/profile_benefit_card.dart';
 import 'package:flutter_bili_talk/widget/profile_card.dart';
 import 'package:flutter_bili_talk/widget/theme_mode_item.dart';
+import 'package:hi_base/view_util.dart';
 import 'package:hi_net/core/hi_error.dart';
 
 /// 个人中心页面

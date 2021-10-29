@@ -3,7 +3,7 @@ import 'package:flutter_bili_talk/page/favorite_list_page.dart';
 import 'package:flutter_bili_talk/page/home_page.dart';
 import 'package:flutter_bili_talk/page/profile_page.dart';
 import 'package:flutter_bili_talk/page/ranking_page.dart';
-import 'package:flutter_bili_talk/util/color.dart';
+import 'package:hi_base/color.dart';
 
 import 'hi_navigator.dart';
 

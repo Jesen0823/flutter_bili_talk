@@ -11,7 +11,7 @@ import 'package:flutter_bili_talk/page/theme_mode_setting.dart';
 import 'package:flutter_bili_talk/page/video_detail_page.dart';
 import 'package:flutter_bili_talk/provider/hi_provider.dart';
 import 'package:flutter_bili_talk/provider/theme_provider.dart';
-import 'package:flutter_bili_talk/util/toast.dart';
+import 'package:hi_base/toast.dart';
 import 'package:provider/provider.dart';
 
 import 'model/video_model.dart';

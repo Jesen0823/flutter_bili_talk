@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bili_talk/util/view_util.dart';
+import 'package:hi_base/view_util.dart';
 
 /// 可以动态改变位置的Header组件
 /// 单独抽取出来，达到局部刷新，避免整个大的Widget多次重绘，优化性能

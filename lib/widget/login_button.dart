@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bili_talk/util/color.dart';
+import 'package:hi_base/color.dart';
 
 /// 登录按钮
 class LoginButton extends StatelessWidget {

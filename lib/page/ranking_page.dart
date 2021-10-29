@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bili_talk/page/ranking_tab_page.dart';
-import 'package:flutter_bili_talk/util/view_util.dart';
+import 'package:flutter_bili_talk/util/view_tool.dart';
 import 'package:flutter_bili_talk/widget/hi_tab_common.dart';
 import 'package:flutter_bili_talk/widget/navigation_bar.dart';
 

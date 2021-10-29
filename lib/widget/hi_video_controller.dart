@@ -10,8 +10,8 @@ import 'package:chewie/src/material/widgets/options_dialog.dart';
 import 'package:chewie/src/models/subtitle_model.dart';
 import 'package:chewie/src/notifiers/index.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bili_talk/util/color.dart';
 import 'package:flutter_bili_talk/widget/playback_speed_dialog.dart';
+import 'package:hi_base/color.dart';
 import 'package:provider/provider.dart';
 import 'package:video_player/video_player.dart';
 

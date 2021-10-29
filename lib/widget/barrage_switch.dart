@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bili_talk/util/color.dart';
+import 'package:hi_base/color.dart';
 
 /// 点击弹幕输入处，样式变换
 class BarrageSwitch extends StatefulWidget {

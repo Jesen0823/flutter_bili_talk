@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bili_talk/db/hi_cache.dart';
-import 'package:flutter_bili_talk/util/color.dart';
 import 'package:flutter_bili_talk/util/hi_contants.dart';
+import 'package:hi_base/color.dart';
 
 /// 使用 provider 管理主题状态
 

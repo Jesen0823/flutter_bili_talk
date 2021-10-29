@@ -100,7 +100,7 @@ packages:
     source: hosted
     version: "8.1.2"
   cached_network_image:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: cached_network_image
       url: "https://pub.flutter-io.cn"
@@ -316,7 +316,7 @@ packages:
     source: sdk
     version: "0.0.0"
   fluttertoast:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: fluttertoast
       url: "https://pub.flutter-io.cn"
@@ -345,6 +345,13 @@ packages:
     dependency: "direct main"
     description:
       path: "component/hi_barrage"
+      relative: true
+    source: path
+    version: "0.0.1"
+  hi_base:
+    dependency: "direct main"
+    description:
+      path: "component/hi_base"
       relative: true
     source: path
     version: "0.0.1"
@@ -389,7 +396,7 @@ packages:
     source: sdk
     version: "0.0.0"
   intl:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: intl
       url: "https://pub.flutter-io.cn"

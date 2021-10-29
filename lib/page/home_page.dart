@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bili_talk/core/hi_state.dart';
 import 'package:flutter_bili_talk/http/dao/home_dao.dart';
 import 'package:flutter_bili_talk/model/home_model.dart';
 import 'package:flutter_bili_talk/navigator/hi_navigator.dart';
@@ -9,10 +8,11 @@ import 'package:flutter_bili_talk/page/home_tab_page.dart';
 import 'package:flutter_bili_talk/page/profile_page.dart';
 import 'package:flutter_bili_talk/page/video_detail_page.dart';
 import 'package:flutter_bili_talk/provider/theme_provider.dart';
-import 'package:flutter_bili_talk/util/toast.dart';
-import 'package:flutter_bili_talk/util/view_util.dart';
+import 'package:hi_base/toast.dart';
+import 'package:flutter_bili_talk/util/view_tool.dart';
 import 'package:flutter_bili_talk/widget/hi_tab_common.dart';
 import 'package:flutter_bili_talk/widget/navigation_bar.dart';
+import 'package:hi_base/hi_state.dart';
 import 'package:hi_net/core/hi_error.dart';
 import 'package:provider/provider.dart';
 

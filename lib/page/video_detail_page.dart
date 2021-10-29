@@ -9,8 +9,7 @@ import 'package:flutter_bili_talk/model/video_detail_model.dart';
 import 'package:flutter_bili_talk/model/video_model.dart';
 import 'package:flutter_bili_talk/provider/theme_provider.dart';
 import 'package:flutter_bili_talk/util/hi_contants.dart';
-import 'package:flutter_bili_talk/util/toast.dart';
-import 'package:flutter_bili_talk/util/view_util.dart';
+import 'package:flutter_bili_talk/util/view_tool.dart';
 import 'package:flutter_bili_talk/widget/app_bar.dart';
 import 'package:flutter_bili_talk/widget/barrage_switch.dart';
 import 'package:flutter_bili_talk/widget/detail_interaction_bar.dart';
@@ -22,6 +21,7 @@ import 'package:flutter_bili_talk/widget/video_small_card.dart';
 import 'package:flutter_bili_talk/widget/video_view.dart';
 import 'package:flutter_overlay/flutter_overlay.dart';
 import 'package:hi_barrage/hi_barrage.dart';
+import 'package:hi_base/toast.dart';
 import 'package:hi_net/core/hi_error.dart';
 import 'package:provider/provider.dart';
 

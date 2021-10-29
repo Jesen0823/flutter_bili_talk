@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bili_talk/http/dao/login_dao.dart';
 import 'package:flutter_bili_talk/navigator/hi_navigator.dart';
-import 'package:flutter_bili_talk/util/string_util.dart';
-import 'package:flutter_bili_talk/util/toast.dart';
 import 'package:flutter_bili_talk/widget/app_bar.dart';
 import 'package:flutter_bili_talk/widget/login_button.dart';
 import 'package:flutter_bili_talk/widget/login_effect.dart';
 import 'package:flutter_bili_talk/widget/login_input.dart';
+import 'package:hi_base/string_util.dart';
+import 'package:hi_base/toast.dart';
 import 'package:hi_net/core/hi_error.dart';
 
 /// 登录页面

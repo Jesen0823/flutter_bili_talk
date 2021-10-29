@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bili_talk/util/color.dart';
+import 'package:hi_base/color.dart';
 
 /// 登录输入框 自定义Widget
 

@@ -9,7 +9,7 @@ import 'package:flutter_bili_talk/model/owner.dart';
 import 'package:flutter_bili_talk/model/result.dart';
 import 'package:flutter_bili_talk/page/registration_page.dart';
 import 'package:flutter_bili_talk/util/aes_ecb_encode.dart';
-import 'package:flutter_bili_talk/util/color.dart';
+import 'package:hi_base/color.dart';
 import 'package:hi_net/core/hi_error.dart';
 import 'package:hi_net/hi_net.dart';
 
