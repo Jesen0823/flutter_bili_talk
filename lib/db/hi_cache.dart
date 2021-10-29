@@ -64,6 +64,5 @@ class HiCache {
       return result as T;
     }
     return null;
-    ;
   }
 }

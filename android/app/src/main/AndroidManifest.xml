@@ -1,10 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.jesen.flutter_bili_talk">
-
+    <uses-permission android:name="android.permission.INTERNET"/>
     <application
         android:icon="@mipmap/ic_launcher"
-        android:label="flutter_bili_talk"
+        android:label="flutter视频"
         android:usesCleartextTraffic="true"
         tools:targetApi="28">
         <activity
@@ -13,7 +13,10 @@
             android:hardwareAccelerated="true"
             android:launchMode="singleTop"
             android:theme="@style/LaunchTheme"
-            android:windowSoftInputMode="adjustResize">
+
+        android:windowSoftInputMode="adjustResize">
+            <!--支持刘海屏-->
+            <meta-data android:name="android.notch_support" android:value="true"/>
             <!-- Specifies an Android theme to apply to this Activity as soon as
                  the Android process has started. This theme is visible to the user
                  while the Flutter UI initializes. After that, this theme continues
