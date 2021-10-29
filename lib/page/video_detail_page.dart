@@ -2,17 +2,17 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bili_talk/barrage/barrage_input.dart';
-import 'package:flutter_bili_talk/barrage/barrage_switch.dart';
-import 'package:flutter_bili_talk/barrage/hi_barrage.dart';
 import 'package:flutter_bili_talk/http/dao/favorite_dao.dart';
 import 'package:flutter_bili_talk/http/dao/like_dao.dart';
 import 'package:flutter_bili_talk/http/dao/video_detail_dao.dart';
 import 'package:flutter_bili_talk/model/video_detail_model.dart';
 import 'package:flutter_bili_talk/model/video_model.dart';
 import 'package:flutter_bili_talk/provider/theme_provider.dart';
+import 'package:flutter_bili_talk/util/hi_contants.dart';
 import 'package:flutter_bili_talk/util/toast.dart';
 import 'package:flutter_bili_talk/util/view_util.dart';
 import 'package:flutter_bili_talk/widget/app_bar.dart';
+import 'package:flutter_bili_talk/widget/barrage_switch.dart';
 import 'package:flutter_bili_talk/widget/detail_interaction_bar.dart';
 import 'package:flutter_bili_talk/widget/expendable_content.dart';
 import 'package:flutter_bili_talk/widget/hi_tab_common.dart';
@@ -21,6 +21,7 @@ import 'package:flutter_bili_talk/widget/video_header.dart';
 import 'package:flutter_bili_talk/widget/video_small_card.dart';
 import 'package:flutter_bili_talk/widget/video_view.dart';
 import 'package:flutter_overlay/flutter_overlay.dart';
+import 'package:hi_barrage/hi_barrage.dart';
 import 'package:hi_net/core/hi_error.dart';
 import 'package:provider/provider.dart';
 
@@ -110,6 +111,7 @@ class _VideoDetailPageState extends State<VideoDetailPage>
         cover: model.cover,
         overLayUI: videoAppBar(),
         barrageUI: HiBarrage(
+          headers: HiConstants.headers(),
           key: _barrageKey,
           vid: model.vid,
           autoPlay: true,

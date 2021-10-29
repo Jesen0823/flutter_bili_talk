@@ -10,6 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  web_socket_channel: '>=1.1.0 <=2.1.0' # 用于实现弹幕
 
 dev_dependencies:
   flutter_test:

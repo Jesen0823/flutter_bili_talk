@@ -341,6 +341,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.2.0"
+  hi_barrage:
+    dependency: "direct main"
+    description:
+      path: "component/hi_barrage"
+      relative: true
+    source: path
+    version: "0.0.1"
   hi_net:
     dependency: "direct main"
     description:
@@ -891,7 +898,7 @@ packages:
     source: hosted
     version: "1.0.0"
   web_socket_channel:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: web_socket_channel
       url: "https://pub.flutter-io.cn"

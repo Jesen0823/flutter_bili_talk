@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bili_talk/model/barrage_model.dart';
+
+import 'barrage_model.dart';
 
 /// 弹幕工具类
 class BarrageViewUtil {

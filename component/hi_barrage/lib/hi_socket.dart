@@ -1,17 +1,19 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_bili_talk/http/dao/login_dao.dart';
-import 'package:flutter_bili_talk/model/barrage_model.dart';
-import 'package:flutter_bili_talk/util/hi_contants.dart';
 import 'package:web_socket_channel/io.dart';
+
+import 'barrage_model.dart';
 
 /// WebSocket通信封装
 class HiSocket implements ISocket {
+  final Map<String, dynamic> header;
   static const _URL = 'wss://api.devio.org/uapi/fa/barrage/';
   IOWebSocketChannel _channel;
   ValueChanged<List<BarrageModel>> _callBack;
 
   //心跳间隔秒数，根据服务器实际timeout时间来调整，这里Mginx服务器的timeout为60秒,Mginx超时后会关闭连接 所以websocket超时时间小于Mginx即可 但不建议设置太小会增加服务器的压力
   int _intervalSeconds = 50;
+
+  HiSocket(this.header);
 
   @override
   void close() {
@@ -30,7 +32,7 @@ class HiSocket implements ISocket {
   ISocket open(String vid) {
     // 建立socket连接
     _channel = IOWebSocketChannel.connect(_URL + vid,
-        headers: _headers(), pingInterval: Duration(seconds: _intervalSeconds));
+        headers: header, pingInterval: Duration(seconds: _intervalSeconds));
     _channel.stream.handleError((error) {
       print('[Flut] socket error: $error');
     }).listen((message) {
@@ -43,15 +45,6 @@ class HiSocket implements ISocket {
   ISocket send(String message) {
     _channel.sink.add(message);
     return this;
-  }
-
-  _headers() {
-    Map<String, dynamic> header = {
-      HiConstants.authTokenK: HiConstants.authTokenV,
-      HiConstants.courseFlagK: HiConstants.courseFlagV,
-    };
-    header[LoginDao.BOARDING_PASS] = LoginDao.getBoardingPass();
-    return header;
   }
 
   /// 处理弹幕返回
