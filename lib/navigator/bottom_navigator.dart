@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bili_talk/page/favorite_page.dart';
+import 'package:flutter_bili_talk/page/favorite_list_page.dart';
 import 'package:flutter_bili_talk/page/home_page.dart';
 import 'package:flutter_bili_talk/page/profile_page.dart';
 import 'package:flutter_bili_talk/page/ranking_page.dart';
@@ -28,7 +28,7 @@ class _BottomNavigatorState extends State<BottomNavigator> {
         onJumpTo: (index) => _onJumpTo(index, pageChange: false),
       ),
       RankingPage(),
-      FavoritePage(),
+      FavoriteListPage(),
       ProfilePage(),
     ];
 

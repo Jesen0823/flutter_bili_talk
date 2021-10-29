@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bili_talk/db/hi_cache.dart';
 import 'package:flutter_bili_talk/http/dao/login_dao.dart';
+import 'package:flutter_bili_talk/page/favorite_list_page.dart';
 import 'package:flutter_bili_talk/page/login_page.dart';
 import 'package:flutter_bili_talk/page/notice_page.dart';
 import 'package:flutter_bili_talk/page/registration_page.dart';
@@ -134,6 +135,8 @@ class BiliRouteDelegate extends RouterDelegate<BiliRoutePath>
       page = pageWrap(NoticePage());
     } else if (routeStatus == RouteStatus.login) {
       page = pageWrap(LoginPage());
+    } else if (routeStatus == RouteStatus.favoriteList) {
+      page = pageWrap(FavoriteListPage());
     }
     // 重新创建一个数组，否则pages因引用没有改变路由不会生效
     tempPages = [...tempPages, page];
