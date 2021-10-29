@@ -2,8 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bili_talk/db/hi_cache.dart';
-import 'package:flutter_bili_talk/http/core/hi_error.dart';
-import 'package:flutter_bili_talk/http/core/hi_net.dart';
 import 'package:flutter_bili_talk/http/dao/login_dao.dart';
 import 'package:flutter_bili_talk/http/request/notice_request.dart';
 import 'package:flutter_bili_talk/http/request/test_request.dart';
@@ -12,6 +10,8 @@ import 'package:flutter_bili_talk/model/result.dart';
 import 'package:flutter_bili_talk/page/registration_page.dart';
 import 'package:flutter_bili_talk/util/aes_ecb_encode.dart';
 import 'package:flutter_bili_talk/util/color.dart';
+import 'package:hi_net/core/hi_error.dart';
+import 'package:hi_net/hi_net.dart';
 
 void main() {
   runApp(MyApp());

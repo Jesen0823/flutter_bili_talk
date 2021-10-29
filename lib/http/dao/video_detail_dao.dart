@@ -1,6 +1,6 @@
-import 'package:flutter_bili_talk/http/core/hi_net.dart';
 import 'package:flutter_bili_talk/http/request/video_detail_request.dart';
 import 'package:flutter_bili_talk/model/video_detail_model.dart';
+import 'package:hi_net/hi_net.dart';
 
 /// 视频详情页请求
 class VideoDetailDao {

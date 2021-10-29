@@ -1,6 +1,6 @@
-import 'package:flutter_bili_talk/http/core/hi_net.dart';
 import 'package:flutter_bili_talk/http/request/ranking_request.dart';
 import 'package:flutter_bili_talk/model/ranking_model.dart';
+import 'package:hi_net/hi_net.dart';
 
 class RankingDao {
   static get(String sort, {int pageIndex = 1, int pageSize = 10}) async {

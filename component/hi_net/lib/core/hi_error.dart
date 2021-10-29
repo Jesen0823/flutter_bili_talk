@@ -10,7 +10,6 @@ class NeedAuth extends HiNetError {
 }
 
 /// 网络异常统一格式
-
 class HiNetError implements Exception {
   final int code;
   final String message;

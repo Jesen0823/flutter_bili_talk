@@ -1,7 +1,9 @@
-import 'hi_base_request.dart';
+import 'package:hi_net/request/hi_base_request.dart';
+
+import 'base_request.dart';
 
 /// 点赞接口
-class LikeRequest extends HiBaseRequest {
+class LikeRequest extends BaseRequest {
   // 是否要点赞
   bool isReqLike = true;
 

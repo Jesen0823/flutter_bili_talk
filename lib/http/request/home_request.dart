@@ -1,6 +1,8 @@
-import 'hi_base_request.dart';
+import 'package:hi_net/request/hi_base_request.dart';
 
-class HomeRequest extends HiBaseRequest {
+import 'base_request.dart';
+
+class HomeRequest extends BaseRequest {
   @override
   HttpMethod httpMethod() {
     return HttpMethod.GET;

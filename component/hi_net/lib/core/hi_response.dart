@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:flutter_bili_talk/http/request/hi_base_request.dart';
+import 'package:hi_net/request/hi_base_request.dart';
 
 abstract class HiNetAdapter {
   Future<HiNetResponse<T>> send<T>(HiBaseRequest request);

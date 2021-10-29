@@ -1,7 +1,9 @@
-import 'hi_base_request.dart';
+import 'package:hi_net/request/hi_base_request.dart';
+
+import 'base_request.dart';
 
 /// 收藏列表请求
-class FavoriteListRequest extends HiBaseRequest {
+class FavoriteListRequest extends BaseRequest {
   @override
   HttpMethod httpMethod() {
     return HttpMethod.GET;

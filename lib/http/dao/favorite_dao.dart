@@ -1,7 +1,7 @@
-import 'package:flutter_bili_talk/http/core/hi_net.dart';
 import 'package:flutter_bili_talk/http/request/favorite_list_request.dart';
 import 'package:flutter_bili_talk/http/request/favorite_request.dart';
 import 'package:flutter_bili_talk/model/ranking_model.dart';
+import 'package:hi_net/hi_net.dart';
 
 class FavoriteDao {
   static favorite(String vid, bool isFavReq) async {

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bili_talk/barrage/barrage_input.dart';
 import 'package:flutter_bili_talk/barrage/barrage_switch.dart';
 import 'package:flutter_bili_talk/barrage/hi_barrage.dart';
-import 'package:flutter_bili_talk/http/core/hi_error.dart';
 import 'package:flutter_bili_talk/http/dao/favorite_dao.dart';
 import 'package:flutter_bili_talk/http/dao/like_dao.dart';
 import 'package:flutter_bili_talk/http/dao/video_detail_dao.dart';
@@ -22,6 +21,7 @@ import 'package:flutter_bili_talk/widget/video_header.dart';
 import 'package:flutter_bili_talk/widget/video_small_card.dart';
 import 'package:flutter_bili_talk/widget/video_view.dart';
 import 'package:flutter_overlay/flutter_overlay.dart';
+import 'package:hi_net/core/hi_error.dart';
 import 'package:provider/provider.dart';
 
 class VideoDetailPage extends StatefulWidget {

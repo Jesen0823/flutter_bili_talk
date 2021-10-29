@@ -1,7 +1,9 @@
-import 'hi_base_request.dart';
+import 'package:hi_net/request/hi_base_request.dart';
+
+import 'base_request.dart';
 
 /// 通知
-class NoticeRequest extends HiBaseRequest {
+class NoticeRequest extends BaseRequest {
   @override
   HttpMethod httpMethod() {
     return HttpMethod.GET;

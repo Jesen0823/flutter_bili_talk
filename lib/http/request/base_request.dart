@@ -1,6 +1,6 @@
 import 'package:flutter_bili_talk/http/dao/login_dao.dart';
-import 'package:flutter_bili_talk/http/request/hi_base_request.dart';
 import 'package:flutter_bili_talk/util/hi_contants.dart';
+import 'package:hi_net/request/hi_base_request.dart';
 
 /// 基础请求
 abstract class BaseRequest extends HiBaseRequest {

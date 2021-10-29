@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bili_talk/core/hi_state.dart';
-import 'package:flutter_bili_talk/http/core/hi_error.dart';
 import 'package:flutter_bili_talk/http/dao/home_dao.dart';
 import 'package:flutter_bili_talk/model/home_model.dart';
 import 'package:flutter_bili_talk/navigator/hi_navigator.dart';
@@ -14,6 +13,7 @@ import 'package:flutter_bili_talk/util/toast.dart';
 import 'package:flutter_bili_talk/util/view_util.dart';
 import 'package:flutter_bili_talk/widget/hi_tab_common.dart';
 import 'package:flutter_bili_talk/widget/navigation_bar.dart';
+import 'package:hi_net/core/hi_error.dart';
 import 'package:provider/provider.dart';
 
 /// 首页

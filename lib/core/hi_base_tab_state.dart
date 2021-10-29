@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bili_talk/core/hi_state.dart';
-import 'package:flutter_bili_talk/http/core/hi_error.dart';
 import 'package:flutter_bili_talk/util/toast.dart';
+import 'package:hi_net/core/hi_error.dart';
 
 /// 通用下拉刷新
 

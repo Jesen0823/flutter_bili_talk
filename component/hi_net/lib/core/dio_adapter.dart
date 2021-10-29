@@ -1,7 +1,8 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_bili_talk/http/core/hi_error.dart';
-import 'package:flutter_bili_talk/http/core/hi_response.dart';
-import 'package:flutter_bili_talk/http/request/hi_base_request.dart';
+import 'package:hi_net/request/hi_base_request.dart';
+
+import 'hi_error.dart';
+import 'hi_response.dart';
 
 class DioAdapter extends HiNetAdapter {
   @override

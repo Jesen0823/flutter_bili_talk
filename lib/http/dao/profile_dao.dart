@@ -1,6 +1,6 @@
-import 'package:flutter_bili_talk/http/core/hi_net.dart';
 import 'package:flutter_bili_talk/http/request/profile_request.dart';
 import 'package:flutter_bili_talk/model/profile_model.dart';
+import 'package:hi_net/hi_net.dart';
 
 /// 个人中心请求
 class ProfileDao {

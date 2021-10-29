@@ -1,8 +1,8 @@
 import 'package:flutter_bili_talk/db/hi_cache.dart';
-import 'package:flutter_bili_talk/http/core/hi_net.dart';
-import 'package:flutter_bili_talk/http/request/hi_base_request.dart';
+import 'package:flutter_bili_talk/http/request/base_request.dart';
 import 'package:flutter_bili_talk/http/request/login_request.dart';
 import 'package:flutter_bili_talk/http/request/registration_request.dart';
+import 'package:hi_net/hi_net.dart';
 
 class LoginDao {
   // 登录令牌
@@ -19,7 +19,7 @@ class LoginDao {
 
   /// 封装登录注册方法
   static _send(String userName, String password, {imoocId, orderId}) async {
-    HiBaseRequest request;
+    BaseRequest request;
     if (imoocId != null && orderId != null) {
       request = RegistrationRequest();
     } else {

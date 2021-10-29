@@ -1,7 +1,9 @@
-import 'hi_base_request.dart';
+import 'package:hi_net/request/hi_base_request.dart';
+
+import 'base_request.dart';
 
 /// 收藏请求
-class FavoriteRequest extends HiBaseRequest {
+class FavoriteRequest extends BaseRequest {
   // 是否要收藏
   bool isReqFav = true;
 

@@ -1,7 +1,9 @@
-import 'hi_base_request.dart';
+import 'package:hi_net/request/hi_base_request.dart';
+
+import 'base_request.dart';
 
 /// 个人中心页面请求
-class ProfileRequest extends HiBaseRequest {
+class ProfileRequest extends BaseRequest {
   @override
   HttpMethod httpMethod() {
     return HttpMethod.GET;
