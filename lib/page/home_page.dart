@@ -8,11 +8,11 @@ import 'package:flutter_bili_talk/page/home_tab_page.dart';
 import 'package:flutter_bili_talk/page/profile_page.dart';
 import 'package:flutter_bili_talk/page/video_detail_page.dart';
 import 'package:flutter_bili_talk/provider/theme_provider.dart';
-import 'package:hi_base/toast.dart';
 import 'package:flutter_bili_talk/util/view_tool.dart';
 import 'package:flutter_bili_talk/widget/hi_tab_common.dart';
 import 'package:flutter_bili_talk/widget/navigation_bar.dart';
 import 'package:hi_base/hi_state.dart';
+import 'package:hi_base/toast.dart';
 import 'package:hi_net/core/hi_error.dart';
 import 'package:provider/provider.dart';
 
@@ -209,7 +209,7 @@ class _HomePageState extends HiState<HomePage>
               child: Image(
                 height: 46,
                 width: 46,
-                image: AssetImage('images/avatar.png'),
+                image: AssetImage('images/avatar.jpg'),
               ),
             ),
           ),

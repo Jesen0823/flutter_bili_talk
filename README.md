@@ -21,6 +21,34 @@ samples, guidance on mobile development, and a full API reference.
 
 2. 错误码
 
+3. flutter状态管理方案：
+   ![状态管理方案比较](./capture/状态管理.jpg)
+
+3. 截图
+
+    ![](./capture/播放器.jpg)  ![](./capture/全屏播放.jpg)
+    ![](./capture/详情页1.jpg) ![](./capture/详情页2.jpg) ![](./capture/详情页3.jpg)
+    ![](./capture/排行榜.png)   ![](./capture/弹幕效果.png) ![](./capture/夜间模式.png)
+    ![](./capture/登录注册1.png) ![](./capture/登录注册2.png) ![](./capture/首页banner.jpg)
+    ![](./capture/组件化示意.jpg)
+    
+3. 集成测试步骤：
+    * .添加测试驱动
+       添加测试驱动的目的是为了方便通过flutter drive命令运行集成测试：在项目根目录创建test_driver目录并添加文件 integration_test.dart:
+       import 'package:integration_test/integration_test_driver.dart';
+       Future<void> main() => integrationDriver();
+   
+    * .编写测试用例
+       在项目根目录创建integration_test目录并添加文件 app_test.dart
+   
+    * .运行测试用例
+       运行集成测试的测试用例可以通过以下命令来完成：
+       flutter drive  --driver=test_driver/integration_test.dart --target=integration_test/app_test.dart
+       --driver：用于指定测试驱动的路径；
+       --target：用于指定测试用例的路径；
+    * .查看结果
+   
+
 3. flutter性能优化
 
  * 内存优化 Flutter  Performance
@@ -48,11 +76,69 @@ samples, guidance on mobile development, and a full API reference.
  * 帧率优化
     一般是列表滑动的流畅度优化，可能是生成列表的方式，比如直接使用了ListView构造方法，这种情况应该使用ListView.build()方法生成列表。
 
+4. flutter组件化
+
+   组件可以是单独的widget或者单独的包，前提是不依赖外部条件。
+   * 根目录下新建文件夹component作为组件根目录
+   * 新建flutter new project类型为flutter-package,命名为my_component01
+   * 将独立模块的代码放入新组件，在根项目即宿主工程的pubspec.yaml中加入组件的依赖：
+   ```
+     dependencies:
+       flutter:
+         sdk: flutter
+
+       # 组件化配置
+       my_component01:
+         path: ./component/my_component01
+   ```
+   * 然后即可在宿主中调用组件中的功能
+
 4. 签名打包
+ * 配置文件
+   * 在android目录下放置签名文件 xxx.jks
+   * 在android目录下创建key.properties文件，并编辑：
+
+   ```
+    storePassword=11301131
+    keyPassword=11301131
+    keyAlias=11301131
+    storeFile=../xxx.jks
+   ```
+   * 编辑app目录下的build.gradle：
+     首先，在android{...}上面添加：
+     ```
+       def keystoreProperties = new Properties()
+       def keystorePropertiesFile = rootProject.file('key.properties')
+       if (keystorePropertiesFile.exists()) {
+           keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+       }
+
+     ```
+     其次，在android{...}闭包中添加：
+
+     ```
+       signingConfigs {
+               release {
+                   keyAlias keystoreProperties['keyAlias']
+                   keyPassword keystoreProperties['keyPassword']
+                   storeFile file(keystoreProperties['storeFile'])
+                   storePassword keystoreProperties['storePassword']
+               }
+           }
+     ```
+     最后，将签名类型默认的debug改为release：
+
+     ```
+       buildTypes {
+               release {
+                   signingConfig signingConfigs.release
+               }
+           }
+     ```
 
  * 构建release包
     * 构建全部架构的安装包
-      cd<flutter应用的android目录>
+      cd<flutter应用的android目录>，命令：
       mac:`./gradlew assembleRelease`
       window: `gradlew assembleRelease`
       构建出来的Release包是包含所有ABI架构的。
@@ -61,4 +147,7 @@ samples, guidance on mobile development, and a full API reference.
       `flutter build apk --split-per-abi`
       flutter build：命令默认会构建出release包
       --split-per-abi：表示构建单一架构
+      ![构建结果](./capture/构建结果.png)
 
+ * 产物：
+    ![扫码下载](./capture/二维码图片.png)
