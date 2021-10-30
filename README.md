@@ -26,11 +26,11 @@ samples, guidance on mobile development, and a full API reference.
 
 3. 截图
 
-    ![](./capture/播放器.jpg)  ![](./capture/全屏播放.jpg)
-    ![](./capture/详情页1.jpg) ![](./capture/详情页2.jpg) ![](./capture/详情页3.jpg)
-    ![](./capture/排行榜.png)   ![](./capture/弹幕效果.png) ![](./capture/夜间模式.png)
-    ![](./capture/登录注册1.png) ![](./capture/登录注册2.png) ![](./capture/首页banner.jpg)
-    ![](./capture/组件化示意.jpg)
+    ![播放器](./capture/播放器.jpg)
+    ![详情页](./capture/详情页.jpg)
+    ![其他](./capture/其他.jpg)
+    ![弹幕-登录-注册](./capture/弹幕-登录-注册.jpg)
+    ![组件化架构](./capture/组件化示意.jpg)
     
 3. 集成测试步骤：
     * .添加测试驱动
@@ -75,6 +75,8 @@ samples, guidance on mobile development, and a full API reference.
  * 列表方法优化
  * 帧率优化
     一般是列表滑动的流畅度优化，可能是生成列表的方式，比如直接使用了ListView构造方法，这种情况应该使用ListView.build()方法生成列表。
+    ![帧率](./capture/帧率.jpg)
+    ![内存变化](./capture/内存变化.jpg)
 
 4. flutter组件化
 
@@ -147,7 +149,7 @@ samples, guidance on mobile development, and a full API reference.
       `flutter build apk --split-per-abi`
       flutter build：命令默认会构建出release包
       --split-per-abi：表示构建单一架构
-      ![构建结果](./capture/构建结果.png)
+      ![构建结果](./capture/构建结果.jpg)
 
  * 产物：
     ![扫码下载](./capture/二维码图片.png)
