@@ -47,3 +47,18 @@ samples, guidance on mobile development, and a full API reference.
  * 列表方法优化
  * 帧率优化
     一般是列表滑动的流畅度优化，可能是生成列表的方式，比如直接使用了ListView构造方法，这种情况应该使用ListView.build()方法生成列表。
+
+4. 签名打包
+
+ * 构建release包
+    * 构建全部架构的安装包
+      cd<flutter应用的android目录>
+      mac:`./gradlew assembleRelease`
+      window: `gradlew assembleRelease`
+      构建出来的Release包是包含所有ABI架构的。
+    * 构建单一架构的安装包
+      cd<flutter应用的android目录>
+      `flutter build apk --split-per-abi`
+      flutter build：命令默认会构建出release包
+      --split-per-abi：表示构建单一架构
+
