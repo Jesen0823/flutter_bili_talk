@@ -33,8 +33,8 @@ class HiNet {
     if (response == null) {
       printLog(error);
     }
-    var result = response.data;
-    print('[Flut] fire result: $result');
+    var result = response?.data;
+    print('[Flut] fire result: $response');
 
     var status = response.statusCode;
     switch (status) {
