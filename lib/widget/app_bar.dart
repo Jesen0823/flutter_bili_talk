@@ -1,17 +1,19 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:hi_base/color.dart';
 import 'package:hi_base/view_util.dart';
 
 /// 自定义顶部appBar
 
 appBar(String title, String rightTitle, VoidCallback rightButtonClick, {key}) {
   return AppBar(
+    backgroundColor: primary[50],
     centerTitle: false,
     titleSpacing: 0,
-    leading: BackButton(),
+    leading: BackButton(color: Colors.white),
     title: Text(
       title,
-      style: TextStyle(fontSize: 18),
+      style: TextStyle(fontSize: 18, color: Colors.white),
     ),
     actions: [
       InkWell(

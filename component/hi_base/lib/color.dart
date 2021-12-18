@@ -4,7 +4,11 @@ import 'package:flutter/material.dart';
 const MaterialColor primary = const MaterialColor(
     // 定义 参考官方：Colors.blue  Colors.blue[50]
     0xfffb7299,
-    const <int, Color>{50: const Color(0xffff9db5)});
+    const <int, Color>{
+      50: const Color(0xffff9db5),
+      20: const Color(0xffFCB1C4),
+      10: const Color(0xffFDCBD8)
+    });
 
 const MaterialColor white = MaterialColor(
   0xFFFFFFFF,

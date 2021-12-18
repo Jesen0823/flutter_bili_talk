@@ -55,3 +55,83 @@ BoxDecoration bottomBoxShadow(BuildContext context) {
     ],
   );
 }
+
+void showCupertinoAlertDialog(BuildContext context) {
+  showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return CupertinoAlertDialog(
+          title: Text("这是一个iOS风格的对话框"),
+          content: Column(
+            children: <Widget>[
+              SizedBox(
+                height: 10,
+              ),
+              Align(
+                child: Text("这是消息"),
+                alignment: Alignment(0, 0),
+              ),
+            ],
+          ),
+          actions: <Widget>[
+            CupertinoDialogAction(
+              child: Text("取消"),
+              onPressed: () {
+                Navigator.pop(context);
+                print("取消");
+              },
+            ),
+            CupertinoDialogAction(
+              child: Text("确定"),
+              onPressed: () {
+                print("确定");
+              },
+            ),
+          ],
+        );
+      });
+}
+
+/// 自动登录Dialog
+Future alertDialogAutoLogin(
+    BuildContext context,
+    String title,
+    String content,
+    String negativeText,
+    String cancelText,
+    Function onNegativeCallback,
+    Function onCancelCallback) {
+  var result = showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(title),
+          content: Text(content),
+          backgroundColor: primary[10],
+          elevation: 24,
+          contentPadding: EdgeInsets.all(18.0),
+          buttonPadding:
+              EdgeInsets.only(top: 4.0, bottom: 8.0, right: 8.0, left: 8.0),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+          actions: <Widget>[
+            TextButton(
+              child: Text(cancelText),
+              onPressed: () {
+                Navigator.of(context).pop(false);
+                onCancelCallback();
+              },
+            ),
+            TextButton(
+              child: Text(negativeText),
+              onPressed: () {
+                Navigator.of(context).pop(true);
+                onNegativeCallback();
+              },
+            ),
+          ],
+        );
+      },
+      barrierDismissible: true);
+  return result;
+}

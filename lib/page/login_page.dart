@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bili_talk/db/hi_cache.dart';
 import 'package:flutter_bili_talk/http/dao/login_dao.dart';
 import 'package:flutter_bili_talk/navigator/hi_navigator.dart';
+import 'package:flutter_bili_talk/page/registration_page.dart';
+import 'package:flutter_bili_talk/util/view_tool.dart';
 import 'package:flutter_bili_talk/widget/app_bar.dart';
 import 'package:flutter_bili_talk/widget/login_button.dart';
 import 'package:flutter_bili_talk/widget/login_effect.dart';
@@ -18,19 +21,57 @@ class LoginPage extends StatefulWidget {
   _LoginPageState createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
   bool isProtect = false;
+
   // 按钮可点状态
   bool loginEnable = false;
   String userName;
   String password;
 
+  // 上一页面
+  Widget _prePage;
+
+  // 路由监听
+  var listener;
+  bool isAutoLogin;
+
+  @override
+  void initState() {
+    super.initState();
+
+    HiNavigator.getInstance().addListener(this.listener = (current, pre) {
+      this._prePage = pre.page;
+      print('login:current:${current.page}, pre:${pre.page}');
+    });
+  }
+
+  void showAlertDialogAutoLogin(context) {
+    alertDialogAutoLogin(
+        context, "提示", "如果您无法注册账号，可选择内部默认登录哦~", "以后再说吧", "试试", () {}, () {
+      HiCache.getInstance()
+          .setString("boarding-pass", "E793ED7A61088AAA70DD32614448F2C4AF");
+      showToast('登录成功');
+      HiNavigator.getInstance().onJumpTo(RouteStatus.home);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    print("build, _prePage:$_prePage");
+
     return Scaffold(
       appBar: appBar('密码登录', '注册', () {
         print('right btn click');
-        HiNavigator.getInstance().onJumpTo(RouteStatus.registration);
+        print("build, _prePage:$_prePage");
+
+        if (_prePage is RegistrationPage) {
+          print(
+              'current login page is back from register page,and I will auto login in with a default account.');
+          showAlertDialogAutoLogin(context);
+        } else {
+          HiNavigator.getInstance().onJumpTo(RouteStatus.registration);
+        }
       }, key: Key('registerKey')),
       body: Container(
         child: ListView(
@@ -65,7 +106,9 @@ class _LoginPageState extends State<LoginPage> {
               child: LoginButton(
                 '登录',
                 enable: loginEnable,
-                onPressed: _send,
+                onPressed: () {
+                  _send();
+                },
               ),
             )
           ],

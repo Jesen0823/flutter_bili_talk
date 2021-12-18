@@ -55,6 +55,7 @@ dependencies:
   flutter_overlay: ^1.0.0 # 发送弹幕软键盘适配
   provider: ^5.0.0  # 状态管理
 
+
 #解决依赖冲突，强制覆写为同一个版本
 #dependency_overrides:
 #  archive:3.0.0
